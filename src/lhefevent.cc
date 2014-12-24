@@ -3,6 +3,8 @@
  */
 
 #include "lhefevent.h"
+#include <iostream>
+#include <sstream>
 #include <string>
 
 namespace lhef {
@@ -58,7 +60,7 @@ void SkipTillEventLine(std::istream *is) {
     }
 }
 
-std::string EventLines(std::istream *is) {
+std::string EventStr(std::istream *is) {
     SkipTillEventLine(is);
 
     std::string event_line(""), line;

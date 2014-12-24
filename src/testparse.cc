@@ -22,13 +22,13 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string event;
+    std::string evstr;
     while (true) {
-        event = lhef::EventLines(&filename);
-        if (event.empty()) {
+        evstr = lhef::EventStr(&filename);
+        if (evstr.empty()) {
             break;
         } else {
-            std::cout << event << '\n';
+            std::cout << evstr << '\n';
         }
     }
 

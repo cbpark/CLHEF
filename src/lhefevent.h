@@ -7,7 +7,7 @@
 
 #include <array>
 #include <cmath>
-#include <iostream>
+#include <ostream>
 #include <map>
 #include <string>
 #include <utility>
@@ -33,11 +33,11 @@ struct Particle {
     double vtimup;
     double spinup;
 
-    double TransverseMomentum() const {
+    double p_transverse() const {
         return std::sqrt(pup[0] * pup[0] + pup[1] * pup[1]);
     }
     bool operator<(const Particle& rhs) const {
-        return TransverseMomentum() < rhs.TransverseMomentum();
+        return p_transverse() < rhs.p_transverse();
     }
     friend std::ostream& operator<<(std::ostream& os, const Particle& p);
 };
@@ -54,7 +54,7 @@ struct Event {
     friend std::ostream& operator<<(std::ostream& os, const Event& e);
 };
 
-std::string EventLines(std::istream *is);
+std::string EventStr(std::istream *is);
 }  // namespace lhef
 
 #endif  // SRC_LHEFEVENT_H_
