@@ -3,6 +3,7 @@
  */
 
 #include "lhefevent.h"
+#include <string>
 
 namespace lhef {
 std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
@@ -63,7 +64,11 @@ std::string EventLines(std::istream *is) {
     std::string event_line(""), line;
     while (std::getline(*is, line)) {
         if (line.find("</event") == std::string::npos) {
-            event_line += line + '\n';
+            if (line.front() == '#') {  // comment line
+                continue;
+            } else {
+                event_line += line + '\n';
+            }
         } else {
             break;
         }
