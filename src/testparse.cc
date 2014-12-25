@@ -1,6 +1,7 @@
 #include <fstream>
 #include <iostream>
 #include "lhef.h"
+#include "parser.h"
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
@@ -29,7 +30,7 @@ int main(int argc, char* argv[]) {
             ++num_eve;
             std::cout << eve << '\n';
             ps = lhef::StableParticles(eve);
-            std::cout << ps << '\n';
+            std::cout << "-- Final-state particles:\n" << ps << '\n';
         } else {
             break;
         }

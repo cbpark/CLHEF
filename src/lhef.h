@@ -3,12 +3,9 @@
 
 #include <ostream>
 #include <vector>
-#include "lhefevent.h"
+#include "type.h"
 
 namespace lhef {
-using Particles = std::vector<Particle>;
-std::ostream& operator<<(std::ostream& os, const Particles& ps);
-
 Particles StableParticles(const LHEFEvent& lhe);
 }  // namespace lhef
 

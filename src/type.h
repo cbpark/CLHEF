@@ -1,11 +1,12 @@
-#ifndef SRC_LHEFEVENT_H_
-#define SRC_LHEFEVENT_H_
+#ifndef SRC_TYPE_H_
+#define SRC_TYPE_H_
 
 #include <array>
 #include <cmath>
 #include <iostream>
 #include <unordered_map>
 #include <utility>
+#include <vector>
 
 namespace lhef {
 struct EventInfo {
@@ -56,8 +57,11 @@ public:
     friend std::istream& operator>>(std::istream& is, Particle& p);
 };
 
+using Particles = std::vector<Particle>;
+std::ostream& operator<<(std::ostream& os, const Particles& ps);
+
 using EventEntry = std::unordered_map<int, Particle>;
-std::ostream& operator<<(std::ostream& os, const EventEntry& ps);
+std::ostream& operator<<(std::ostream& os, const EventEntry& entry);
 
 class LHEFEvent {
 public:
@@ -76,8 +80,6 @@ public:
     }
     friend std::ostream& operator<<(std::ostream& os, const LHEFEvent& e);
 };
-
-LHEFEvent ParseEvent(std::istream *is);
 }  // namespace lhef
 
-#endif  // SRC_LHEFEVENT_H_
+#endif  // SRC_TYPE_H_

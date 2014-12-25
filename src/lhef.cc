@@ -3,15 +3,6 @@
 #include "lhef.h"
 
 namespace lhef {
-std::ostream& operator<<(std::ostream& os, const Particles& ps) {
-    os << '[';
-    for (auto p : ps) {
-        os << p << ',';
-    }
-    os << "\b]";
-    return os;
-}
-
 Particles StableParticles(const LHEFEvent& lhe) {
     Particles stable_pars;
     auto ps = lhe.event.second;
