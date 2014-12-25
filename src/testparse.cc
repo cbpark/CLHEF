@@ -20,23 +20,27 @@ int main(int argc, char* argv[]) {
         std::cout << "-- Reading \"" << argv[1] << "\" ...\n";
     }
 
-    lhef::LHEFEvent eve;
+    lhef::LHEFEvent lhe;
     lhef::Particles initstates;
     lhef::Particles finalstates;
+    lhef::Particles wbosons;
+    lhef::Particle wmother;
     int num_eve = 0;
     while (true) {
-        eve = lhef::ParseEvent(&filename);
+        lhe = lhef::ParseEvent(&filename);
 
-        if (!eve.empty()) {
+        if (!lhe.empty()) {
             ++num_eve;
-            std::cout << "-- Event number: " << num_eve << '\n'
-                      << eve << '\n';
-            initstates = lhef::InitialStates(eve);
+            std::cout << "-- Event number: " << num_eve << '\n' << lhe << '\n';
+            initstates = lhef::InitialStates(lhe);
             std::cout << "---- Initial-state particles:\n"
                       << initstates << '\n';
-            finalstates = lhef::FinalStates(eve);
-            std::cout << "---- Final-state particles:\n"
-                      << finalstates << '\n';
+            finalstates = lhef::FinalStates(lhe);
+            std::cout << "---- Final-state particles:\n" << finalstates << '\n';
+            wbosons = lhef::ParticlesOf(24, lhe);
+            std::cout << "---- W bosons:\n" << wbosons << '\n';
+            wmother = lhef::Mother(wbosons.front(), lhe);
+            std::cout << "---- Mother of one W boson:\n" << wmother << '\n';
         } else {
             break;
         }
