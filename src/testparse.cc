@@ -21,16 +21,22 @@ int main(int argc, char* argv[]) {
     }
 
     lhef::LHEFEvent eve;
-    lhef::Particles ps;
+    lhef::Particles initstates;
+    lhef::Particles finalstates;
     int num_eve = 0;
     while (true) {
         eve = lhef::ParseEvent(&filename);
 
         if (!eve.empty()) {
             ++num_eve;
-            std::cout << eve << '\n';
-            ps = lhef::StableParticles(eve);
-            std::cout << "-- Final-state particles:\n" << ps << '\n';
+            std::cout << "-- Event number: " << num_eve << '\n'
+                      << eve << '\n';
+            initstates = lhef::InitialStates(eve);
+            std::cout << "---- Initial-state particles:\n"
+                      << initstates << '\n';
+            finalstates = lhef::FinalStates(eve);
+            std::cout << "---- Final-state particles:\n"
+                      << finalstates << '\n';
         } else {
             break;
         }
