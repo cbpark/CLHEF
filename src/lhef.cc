@@ -6,8 +6,8 @@
 namespace lhef {
 Particles InitialStates(const LHEFEvent& lhe) {
     Particles initialstates;
-    auto ps = lhe.event.second;
-    std::for_each(ps.cbegin(), ps.cend(),
+    auto entry = lhe.particle_entries();
+    std::for_each(entry.cbegin(), entry.cend(),
                   [&] (const std::pair<int, Particle>& pmap) {
                       Particle p = pmap.second;
                       if (p.mothup.first == 1) {
@@ -19,8 +19,8 @@ Particles InitialStates(const LHEFEvent& lhe) {
 
 Particles FinalStates(const LHEFEvent& lhe) {
     Particles finalstates;
-    auto ps = lhe.event.second;
-    std::for_each(ps.cbegin(), ps.cend(),
+    auto entry = lhe.particle_entries();
+    std::for_each(entry.cbegin(), entry.cend(),
                   [&] (const std::pair<int, Particle>& pmap) {
                       Particle p = pmap.second;
                       if (p.istup == 1) {
@@ -30,27 +30,37 @@ Particles FinalStates(const LHEFEvent& lhe) {
     return finalstates;
 }
 
-Particles ParticlesOf(int pid, const LHEFEvent& lhe) {
-    Particles par;
-    auto ps = lhe.event.second;
-    std::for_each(ps.cbegin(), ps.cend(),
+Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
+    Particles pars;
+    auto entry = lhe.particle_entries();
+    std::for_each(entry.cbegin(), entry.cend(),
                   [&] (const std::pair<int, Particle>& pmap) {
                       Particle p = pmap.second;
-                      if (std::abs(p.idup) == std::abs(pid)) {
-                          par.push_back(p);
+                      auto pos = std::find(pid.cbegin(), pid.cend(), p.idup);
+                      if (!(pos == pid.cend())) {
+                          pars.push_back(p);
                       }
                   });
-    return par;
+    return pars;
 }
 
 Particle Mother(Particle p, const LHEFEvent& lhe) {
     int mo_line = p.mothup.first;
-    auto ps = lhe.event.second;
-    auto mo_pos = ps.find(mo_line);
-    if (mo_pos == ps.end()) {  // mother particle not found.
-        return ps.at(1);
+    auto entry = lhe.particle_entries();
+    auto mo_pos = entry.find(mo_line);
+    if (mo_pos == entry.end()) {  // mother particle not found
+        return entry.at(1);
     } else {
-        return ps.at(mo_line);
+        return entry.at(mo_line);
+    }
+}
+
+Particle Ancestor(Particle p, const LHEFEvent& lhe) {
+    Particle mother = Mother(p, lhe);
+    if (mother.mothup.first == 1) {
+        return mother;
+    } else {
+        return Ancestor(mother, lhe);
     }
 }
 }  // namespace lhef

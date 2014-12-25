@@ -66,10 +66,10 @@ std::ostream& operator<<(std::ostream& os, const EventEntry& entry) {
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const LHEFEvent& e) {
+std::ostream& operator<<(std::ostream& os, const LHEFEvent& lhe) {
     os << "LHEFEvent ("
-       << e.event.first << ","
-       << e.event.second << ")";
+       << lhe.event.first << ","
+       << lhe.event.second << ")";
     return os;
 }
 }  // namespace lhef

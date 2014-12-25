@@ -49,7 +49,6 @@ LHEFEvent ParseEvent(std::istream *is) {
     } else {
         lhe(LHEFEvent::kEmpty);
     }
-
     return lhe;
 }
 }  // namespace lhef

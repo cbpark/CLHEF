@@ -45,10 +45,12 @@ public:
     // Consine of the angle between the spin-vector of particle and the
     // three-momentum of the decaying particle, specified in the lab frame.
     double spinup;
+
 private:
     double p_transverse() const {
         return std::sqrt(pup[0] * pup[0] + pup[1] * pup[1]);
     }
+
 public:
     bool operator<(const Particle& rhs) const {
         return p_transverse() < rhs.p_transverse();
@@ -66,20 +68,31 @@ std::ostream& operator<<(std::ostream& os, const EventEntry& entry);
 class LHEFEvent {
 public:
     enum EventStatus {kEmpty, kFill};
+
 private:
     EventStatus status_;
+
 public:
     std::pair<EventInfo, EventEntry> event;
 
     explicit LHEFEvent(EventStatus s = kEmpty) : status_(s) { }
+
     bool empty() const {
         return (status_ == kEmpty? true : false);
+    }
+    EventInfo event_info() const {
+        return event.first;
+    }
+    EventEntry particle_entries() const {
+        return event.second;
     }
     void operator()(EventStatus s) {
         status_ = s;
     }
     friend std::ostream& operator<<(std::ostream& os, const LHEFEvent& e);
 };
+
+using ParticleID = std::vector<int>;
 }  // namespace lhef
 
 #endif  // SRC_TYPE_H_
