@@ -93,6 +93,8 @@ public:
 };
 
 using ParticleID = std::vector<int>;
+
+using ParticleLines = std::vector<int>;
 }  // namespace lhef
 
 #endif  // SRC_TYPE_H_
