@@ -47,7 +47,8 @@ Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
                       Particle p = pmap.second;
                       if (ParticleExists(pid, p)) {
                           pars.push_back(p);
-                      }});
+                      }
+                  });
     return pars;
 }
 
