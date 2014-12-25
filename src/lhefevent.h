@@ -3,9 +3,8 @@
 
 #include <array>
 #include <cmath>
-#include <ostream>
+#include <iostream>
 #include <unordered_map>
-#include <string>
 #include <utility>
 
 namespace lhef {
@@ -24,6 +23,7 @@ struct EventInfo {
     double aqcdup;
 
     friend std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo);
+    friend std::istream& operator>>(std::istream& is, EventInfo& evinfo);
 };
 
 class Particle {
@@ -53,6 +53,7 @@ public:
         return p_transverse() < rhs.p_transverse();
     }
     friend std::ostream& operator<<(std::ostream& os, const Particle& p);
+    friend std::istream& operator>>(std::istream& is, Particle& p);
 };
 
 struct EventEntry {

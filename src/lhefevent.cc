@@ -1,5 +1,4 @@
 #include "lhefevent.h"
-#include <iostream>
 #include <sstream>
 #include <string>
 
@@ -12,6 +11,16 @@ std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
        << ",aqedup=" << evinfo.aqedup
        << ",aqcdup=" << evinfo.aqcdup << "}";
     return os;
+}
+
+std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
+    is >> evinfo.nup
+       >> evinfo.idprup
+       >> evinfo.xwgtup
+       >> evinfo.scalup
+       >> evinfo.aqedup
+       >> evinfo.aqcdup;
+    return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const Particle& p) {
@@ -27,6 +36,17 @@ std::ostream& operator<<(std::ostream& os, const Particle& p) {
        << ",vtimup=" << p.vtimup
        << ",spinup=" << p.spinup << "}";
     return os;
+}
+
+std::istream& operator>>(std::istream& is, Particle& p) {
+    is >> p.idup
+       >> p.istup
+       >> p.mothup.first >> p.mothup.second
+       >> p.icolup.first >> p.icolup.second
+       >> p.pup[0] >> p.pup[1] >> p.pup[2] >> p.pup[3] >> p.pup[4]
+       >> p.vtimup
+       >> p.spinup;
+    return is;
 }
 
 std::ostream& operator<<(std::ostream& os, const EventEntry& ps) {
@@ -65,7 +85,7 @@ std::string EventStr(std::istream *is) {
             } else {
                 event_line += line + '\n';
             }
-        } else {
+        } else {  // end of the event lines reached
             break;
         }
     }
@@ -78,29 +98,16 @@ Event Parse(std::istream *is) {
     Event ev;
     if (!evstr.empty()) {
         std::istringstream iss(evstr);
-        EventInfo einfo;
-        iss >> einfo.nup
-            >> einfo.idprup
-            >> einfo.xwgtup
-            >> einfo.scalup
-            >> einfo.aqedup
-            >> einfo.aqcdup;
+        EventInfo evinfo;
+        iss >> evinfo;
 
         Particle p;
         EventEntry entry;
-        for (int i = 0; i < einfo.nup; ++i) {
-            int linenum;
-            iss >> linenum
-                >> p.idup
-                >> p.istup
-                >> p.mothup.first >> p.mothup.second
-                >> p.icolup.first >> p.icolup.second
-                >> p.pup[0] >> p.pup[1] >> p.pup[2] >> p.pup[3] >> p.pup[4]
-                >> p.vtimup
-                >> p.spinup;
-            entry.particles.insert({linenum, p});
+        for (int i = 0; i < evinfo.nup; ++i) {
+            iss >> p;
+            entry.particles.insert({i + 1, p});
         }
-        ev.event = std::make_pair(einfo, entry);
+        ev.event = std::make_pair(evinfo, entry);
         ev(Event::kFill);
     } else {
         ev(Event::kEmpty);
