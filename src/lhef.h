@@ -7,6 +7,8 @@ namespace lhef {
 Particles InitialStates(const LHEFEvent& lhe);
 
 Particles FinalStates(const LHEFEvent& lhe);
+
+Particle Mother(Particle p, const LHEFEvent& lhe);
 }  // namespace lhef
 
 #endif  // SRC_LHEF_H_

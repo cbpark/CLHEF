@@ -1,5 +1,4 @@
 #include <algorithm>
-#include <functional>
 #include <utility>
 #include "lhef.h"
 
@@ -29,5 +28,17 @@ Particles FinalStates(const LHEFEvent& lhe) {
                   });
 
     return finalstates;
+}
+
+Particle Mother(Particle p, const LHEFEvent& lhe) {
+    int mo_line = p.mothup.first;
+    auto ps = lhe.event.second;
+    auto mo_pos = ps.find(mo_line);
+    if (mo_pos == ps.end()) {  // mother particle not found.
+        Particle empty_par;
+        return empty_par;
+    } else {
+        return ps.at(mo_line);
+    }
 }
 }  // namespace lhef
