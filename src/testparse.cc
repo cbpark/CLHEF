@@ -1,7 +1,3 @@
-/*
- * Copyright (c) 2014 Chan Beom Park
- */
-
 #include "lhefevent.h"
 #include <fstream>
 #include <iostream>
@@ -22,13 +18,14 @@ int main(int argc, char* argv[]) {
         return 1;
     }
 
-    std::string evstr;
+    lhef::Event eve;
     while (true) {
-        evstr = lhef::EventStr(&filename);
-        if (evstr.empty()) {
-            break;
+        eve = lhef::Parse(&filename);
+
+        if (!eve.empty()) {
+            std::cout << eve << '\n';
         } else {
-            std::cout << evstr << '\n';
+            break;
         }
     }
 

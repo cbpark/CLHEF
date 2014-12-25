@@ -1,14 +1,10 @@
-/*
- * Copyright (c) 2014 Chan Beom Park
- */
-
 #ifndef SRC_LHEFEVENT_H_
 #define SRC_LHEFEVENT_H_
 
 #include <array>
 #include <cmath>
 #include <ostream>
-#include <map>
+#include <unordered_map>
 #include <string>
 #include <utility>
 
@@ -43,18 +39,30 @@ struct Particle {
 };
 
 struct EventEntry {
-    std::map<int, Particle> particles;
+    std::unordered_map<int, Particle> particles;
 
     friend std::ostream& operator<<(std::ostream& os, const EventEntry& ps);
 };
 
-struct Event {
+class Event {
+public:
+    enum EventStatus {kEmpty, kFill};
+private:
+    EventStatus status_;
+public:
     std::pair<EventInfo, EventEntry> event;
 
+    explicit Event(EventStatus s = kEmpty) : status_(s) { }
+    bool empty() const {
+        return (status_ == kEmpty? true : false);
+    }
+    void operator()(EventStatus s) {
+        status_ = s;
+    }
     friend std::ostream& operator<<(std::ostream& os, const Event& e);
 };
 
-std::string EventStr(std::istream *is);
+Event Parse(std::istream *is);
 }  // namespace lhef
 
 #endif  // SRC_LHEFEVENT_H_
