@@ -1,6 +1,6 @@
-#include "lhefevent.h"
 #include <sstream>
 #include <string>
+#include "lhefevent.h"
 
 namespace lhef {
 std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
