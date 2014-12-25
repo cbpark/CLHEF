@@ -19,14 +19,17 @@ int main(int argc, char* argv[]) {
         std::cout << "-- Reading \"" << argv[1] << "\" ...\n";
     }
 
-    lhef::Event eve;
+    lhef::LHEFEvent eve;
+    lhef::Particles ps;
     int num_eve = 0;
     while (true) {
-        eve = lhef::Parse(&filename);
+        eve = lhef::ParseEvent(&filename);
 
         if (!eve.empty()) {
             ++num_eve;
             std::cout << eve << '\n';
+            ps = lhef::StableParticles(eve);
+            std::cout << ps << '\n';
         } else {
             break;
         }

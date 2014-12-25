@@ -56,13 +56,10 @@ public:
     friend std::istream& operator>>(std::istream& is, Particle& p);
 };
 
-struct EventEntry {
-    std::unordered_map<int, Particle> particles;
+using EventEntry = std::unordered_map<int, Particle>;
+std::ostream& operator<<(std::ostream& os, const EventEntry& ps);
 
-    friend std::ostream& operator<<(std::ostream& os, const EventEntry& ps);
-};
-
-class Event {
+class LHEFEvent {
 public:
     enum EventStatus {kEmpty, kFill};
 private:
@@ -70,17 +67,17 @@ private:
 public:
     std::pair<EventInfo, EventEntry> event;
 
-    explicit Event(EventStatus s = kEmpty) : status_(s) { }
+    explicit LHEFEvent(EventStatus s = kEmpty) : status_(s) { }
     bool empty() const {
         return (status_ == kEmpty? true : false);
     }
     void operator()(EventStatus s) {
         status_ = s;
     }
-    friend std::ostream& operator<<(std::ostream& os, const Event& e);
+    friend std::ostream& operator<<(std::ostream& os, const LHEFEvent& e);
 };
 
-Event Parse(std::istream *is);
+LHEFEvent ParseEvent(std::istream *is);
 }  // namespace lhef
 
 #endif  // SRC_LHEFEVENT_H_

@@ -49,18 +49,18 @@ std::istream& operator>>(std::istream& is, Particle& p) {
     return is;
 }
 
-std::ostream& operator<<(std::ostream& os, const EventEntry& ps) {
+std::ostream& operator<<(std::ostream& os, const EventEntry& entry) {
     os << "[";
-    for (auto p : ps.particles) {
-        os << "(" << p.first
-           << "," << p.second << "),";
+    for (auto e : entry) {
+        os << "(" << e.first
+           << "," << e.second << "),";
     }
     os << "\b]";
     return os;
 }
 
-std::ostream& operator<<(std::ostream& os, const Event& e) {
-    os << "Event ("
+std::ostream& operator<<(std::ostream& os, const LHEFEvent& e) {
+    os << "LHEFEvent ("
        << e.event.first << ","
        << e.event.second << ")";
     return os;
@@ -92,10 +92,10 @@ std::string EventStr(std::istream *is) {
     return event_line;
 }
 
-Event Parse(std::istream *is) {
+LHEFEvent ParseEvent(std::istream *is) {
     std::string evstr = EventStr(is);
 
-    Event ev;
+    LHEFEvent lhe;
     if (!evstr.empty()) {
         std::istringstream iss(evstr);
         EventInfo evinfo;
@@ -105,14 +105,14 @@ Event Parse(std::istream *is) {
         EventEntry entry;
         for (int i = 0; i < evinfo.nup; ++i) {
             iss >> p;
-            entry.particles.insert({i + 1, p});
+            entry.insert({i + 1, p});
         }
-        ev.event = std::make_pair(evinfo, entry);
-        ev(Event::kFill);
+        lhe.event = std::make_pair(evinfo, entry);
+        lhe(LHEFEvent::kFill);
     } else {
-        ev(Event::kEmpty);
+        lhe(LHEFEvent::kEmpty);
     }
 
-    return ev;
+    return lhe;
 }
 }  // namespace lhef
