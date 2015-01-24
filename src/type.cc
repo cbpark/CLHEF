@@ -68,8 +68,8 @@ std::ostream& operator<<(std::ostream& os, const EventEntry& entry) {
 
 std::ostream& operator<<(std::ostream& os, const LHEFEvent& lhe) {
     os << "LHEFEvent ("
-       << lhe.event.first << ","
-       << lhe.event.second << ")";
+       << lhe.event_info() << ","
+       << lhe.particle_entries() << ")";
     return os;
 }
 }  // namespace lhef

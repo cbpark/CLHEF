@@ -44,7 +44,7 @@ LHEFEvent ParseEvent(std::istream *is) {
             iss >> p;
             entry.insert({i + 1, p});
         }
-        lhe.event = std::make_pair(evinfo, entry);
+        lhe.set_event(evinfo, entry);
         lhe(LHEFEvent::kFill);
     } else {
         lhe(LHEFEvent::kEmpty);

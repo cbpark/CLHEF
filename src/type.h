@@ -71,20 +71,22 @@ public:
 
 private:
     EventStatus status_;
+    std::pair<EventInfo, EventEntry> event_;
 
 public:
-    std::pair<EventInfo, EventEntry> event;
-
     explicit LHEFEvent(EventStatus s = kEmpty) : status_(s) { }
 
-    bool empty() const {
-        return (status_ == kEmpty? true : false);
+    void set_event(const EventInfo& evinfo, const EventEntry& entry) {
+        event_ = std::make_pair(evinfo, entry);
     }
     EventInfo event_info() const {
-        return event.first;
+        return event_.first;
     }
     EventEntry particle_entries() const {
-        return event.second;
+        return event_.second;
+    }
+    bool empty() const {
+        return (status_ == kEmpty? true : false);
     }
     void operator()(EventStatus s) {
         status_ = s;
