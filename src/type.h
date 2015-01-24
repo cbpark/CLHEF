@@ -2,7 +2,6 @@
 #define SRC_TYPE_H_
 
 #include <array>
-#include <cmath>
 #include <iostream>
 #include <unordered_map>
 #include <utility>
@@ -27,8 +26,7 @@ struct EventInfo {
     friend std::istream& operator>>(std::istream& is, EventInfo& evinfo);
 };
 
-class Particle {
-public:
+struct Particle {
     // Particle ID according to Particle Data Group convention.
     int idup;
     // Status code.
@@ -46,15 +44,7 @@ public:
     // three-momentum of the decaying particle, specified in the lab frame.
     double spinup;
 
-private:
-    double p_transverse() const {
-        return std::sqrt(pup[0] * pup[0] + pup[1] * pup[1]);
-    }
-
-public:
-    bool operator<(const Particle& rhs) const {
-        return p_transverse() < rhs.p_transverse();
-    }
+    bool operator<(const Particle& rhs) const;
     friend std::ostream& operator<<(std::ostream& os, const Particle& p);
     friend std::istream& operator>>(std::istream& is, Particle& p);
 };

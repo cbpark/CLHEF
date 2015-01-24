@@ -21,6 +21,14 @@ std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
     return is;
 }
 
+double TransMomentumSq(const Particle& p) {
+    return p.pup[0] * p.pup[0] + p.pup[1] * p.pup[1];
+}
+
+bool Particle::operator<(const Particle& rhs) const {
+    return TransMomentumSq(*this) < TransMomentumSq(rhs);
+}
+
 std::ostream& operator<<(std::ostream& os, const Particle& p) {
     os << "Particle {idup=" << p.idup
        << ",istup=" << p.istup
