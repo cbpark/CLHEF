@@ -15,7 +15,7 @@ make
 make install
 ```
 
-Note that it would be installed in `/usr/local` unless you specify the installation path via `-DCMAKE_INSTALL_PREFIX`.
+Note that it would be installed in `/usr/local` unless you specify the installation path via `-DCMAKE_INSTALL_PREFIX`. See `src/testparse.cc` for an example.
 
 ## References
 
