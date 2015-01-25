@@ -4,6 +4,7 @@
 #include <array>
 #include <iostream>
 #include <unordered_map>
+#include <string>
 #include <utility>
 #include <vector>
 
@@ -22,7 +23,7 @@ struct EventInfo {
     // The QCD coupling \alpha_{QCD} used for the event.
     double aqcdup;
 
-    friend std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo);
+    const std::string show() const;
     friend std::istream& operator>>(std::istream& is, EventInfo& evinfo);
 };
 
@@ -44,16 +45,16 @@ struct Particle {
     // three-momentum of the decaying particle, specified in the lab frame.
     double spinup;
 
+    const std::string show() const;
     bool operator<(const Particle& rhs) const;
-    friend std::ostream& operator<<(std::ostream& os, const Particle& p);
     friend std::istream& operator>>(std::istream& is, Particle& p);
 };
 
 using Particles = std::vector<Particle>;
-std::ostream& operator<<(std::ostream& os, const Particles& ps);
+const std::string show(const Particles& ps);
 
 using EventEntry = std::unordered_map<int, Particle>;
-std::ostream& operator<<(std::ostream& os, const EventEntry& entry);
+const std::string show(const EventEntry& entry);
 
 class LHEFEvent {
 public:
@@ -81,7 +82,7 @@ public:
     void operator()(EventStatus s) {
         status_ = s;
     }
-    friend std::ostream& operator<<(std::ostream& os, const LHEFEvent& e);
+    const std::string show() const;
 };
 
 using ParticleID = std::vector<int>;

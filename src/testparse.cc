@@ -33,16 +33,18 @@ int main(int argc, char* argv[]) {
     int num_eve = 0;
     for ( ; !lhe.empty(); lhe = lhef::ParseEvent(&filename)) {
         ++num_eve;
-        std::cout << "-- Event number: " << num_eve << '\n' << lhe << '\n';
+        std::cout << "-- Event number: " << num_eve << '\n'
+                  << lhe.show() << '\n';
         initstates = lhef::InitialStates(lhe);
         std::cout << "---- Initial-state particles:\n"
-                  << initstates << '\n';
+                  << lhef::show(initstates) << '\n';
         finalstates = lhef::FinalStates(lhe);
-        std::cout << "---- Final-state particles:\n" << finalstates << '\n';
+        std::cout << "---- Final-state particles:\n"
+                  << lhef::show(finalstates) << '\n';
         leptons = lhef::ParticlesOf(is_lepton, lhe);
-        std::cout << "---- Leptons:\n" << leptons << '\n';
+        std::cout << "---- Leptons:\n" << lhef::show(leptons) << '\n';
         lep_anc = lhef::Ancestor(leptons.front(), lhe);
-        std::cout << "---- Ancestor of one lepton:\n" << lep_anc << '\n';
+        std::cout << "---- Ancestor of one lepton:\n" << lep_anc.show() << '\n';
         toplines = lhef::ParticleLinesOf(is_top, lhe);
         std::cout << "---- Lines of top quarks:\n";
         std::copy(toplines.cbegin(), toplines.cend(),
@@ -50,7 +52,7 @@ int main(int argc, char* argv[]) {
         std::cout << '\n';
         daughters_of_top = lhef::FinalDaughters(toplines.front(), lhe);
         std::cout << "---- Daughters of one top quark:\n"
-                  << daughters_of_top << '\n';
+                  << lhef::show(daughters_of_top) << '\n';
     }
 
     std::cout << "-- " << num_eve << " events parsed.\n";
