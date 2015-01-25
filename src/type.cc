@@ -1,4 +1,7 @@
 #include "type.h"
+#include <iomanip>
+#include <ios>
+#include <map>
 
 namespace lhef {
 std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
@@ -9,6 +12,19 @@ std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
        >> evinfo.aqedup
        >> evinfo.aqcdup;
     return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
+    std::streamsize ss = os.precision();
+    os << evinfo.nup
+       << ' ' << std::setw(3) << evinfo.idprup
+       << std::setprecision(7) << std::scientific << std::uppercase
+       << ' ' << std::setw(14) << evinfo.xwgtup
+       << ' ' << std::setw(14) << evinfo.scalup
+       << ' ' << std::setw(14) << evinfo.aqedup
+       << ' ' << std::setw(14) << evinfo.aqcdup;
+    os.precision(ss);
+    return os;
 }
 
 const std::string show(const EventInfo& evinfo) {
@@ -39,6 +55,29 @@ std::istream& operator>>(std::istream& is, Particle& p) {
        >> p.vtimup
        >> p.spinup;
     return is;
+}
+
+std::ostream& operator<<(std::ostream& os, const Particle& p) {
+    os << ' ' << std::setw(8) << p.idup
+       << ' ' << std::setw(4) << p.istup
+       << ' ' << std::setw(4) << p.mothup.first
+       << ' ' << std::setw(4) << p.mothup.second
+       << ' ' << std::setw(4) << p.icolup.first
+       << ' ' << std::setw(4) << p.icolup.second;
+
+    std::streamsize ss = os.precision();
+
+    os << std::setprecision(11) << std::scientific << std::uppercase;
+    for (const auto& momentum : p.pup) {
+        os << ' ' << std::setw(18) << momentum;
+    }
+
+    os << std::fixed << std::setprecision(0)
+       << ' ' << std::setw(1) << p.vtimup << '.'
+       << ' ' << std::setw(2) << p.spinup << '.';
+    os.precision(ss);
+
+    return os;
 }
 
 const std::string show(const Particle& p) {
@@ -83,6 +122,21 @@ const std::string show(const EventEntry& entry) {
     entry_str.pop_back();
     entry_str += "]";
     return entry_str;
+}
+
+std::ostream& operator<<(std::ostream& os, const LHEFEvent& ev) {
+    os << "<event>\n"
+       << ev.event_.first << '\n';
+
+    // EventEntry is unordered_map. It has to be ordered.
+    std::map<int, Particle> entry_ordered(ev.event_.second.cbegin(),
+                                          ev.event_.second.cend());
+    for (const auto& entry : entry_ordered) {
+        os << entry.second << '\n';
+    }
+
+    os << "</event>";
+    return os;
 }
 
 const std::string show(const LHEFEvent& ev) {
