@@ -16,7 +16,7 @@ std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
 
 std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
     std::streamsize ss = os.precision();
-    os << evinfo.nup
+    os << std::setw(2) << evinfo.nup
        << ' ' << std::setw(3) << evinfo.idprup
        << std::setprecision(7) << std::scientific << std::uppercase
        << ' ' << std::setw(14) << evinfo.xwgtup

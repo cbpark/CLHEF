@@ -3,8 +3,8 @@
 
 #include <array>
 #include <iostream>
-#include <unordered_map>
 #include <string>
+#include <unordered_map>
 #include <utility>
 #include <vector>
 
@@ -28,8 +28,7 @@ struct EventInfo {
               double _xwgtup, double _scalup,
               double _aqedup, double _aqcdup)
         : nup(_nup), idprup(_idprup),
-          xwgtup(_xwgtup), scalup(_scalup), aqedup(_aqedup), aqcdup(_aqcdup)
-        { }
+          xwgtup(_xwgtup), scalup(_scalup), aqedup(_aqedup), aqcdup(_aqcdup) { }
 
     friend std::istream& operator>>(std::istream& is, EventInfo& evinfo);
     friend std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo);
@@ -50,10 +49,10 @@ struct Particle {
     // Lab frame momentum (P_x, P_y, P_z, E, M) of particle in GeV.
     std::array<double, 5> pup{{0.0, 0.0, 0.0, 0.0, 0.0}};
     // Invariant lifetime (distance from production to decay) in mm.
-    double vtimup = 0;
+    double vtimup = 0.0;
     // Consine of the angle between the spin-vector of particle and the
     // three-momentum of the decaying particle, specified in the lab frame.
-    double spinup = 0;
+    double spinup = 0.0;
 
     Particle() { }
     Particle(int _idup, int _istdup,
@@ -63,8 +62,7 @@ struct Particle {
         : idup(_idup), istup(_istdup),
           mothup({_mothup1, _mothup2}), icolup({_icolup1, _icolup2}),
           pup({{_pup1, _pup2, _pup3, _pup4, _pup5}}),
-          vtimup(_vtimup), spinup(_spinup)
-        { }
+          vtimup(_vtimup), spinup(_spinup) { }
 
     bool operator<(const Particle& rhs) const;
     friend std::istream& operator>>(std::istream& is, Particle& p);
@@ -90,8 +88,7 @@ private:
 public:
     explicit LHEFEvent(EventStatus s = kEmpty) : status_(s) { }
     LHEFEvent(EventInfo evinfo, EventEntry ev)
-        : status_(kEmpty), event_(std::make_pair(evinfo, ev))
-        { }
+        : event_(std::make_pair(evinfo, ev)) { }
 
     void set_event(const EventInfo& evinfo, const EventEntry& entry) {
         event_ = std::make_pair(evinfo, entry);
