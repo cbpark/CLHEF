@@ -23,9 +23,10 @@ struct EventInfo {
     // The QCD coupling \alpha_{QCD} used for the event.
     double aqcdup;
 
-    const std::string show() const;
     friend std::istream& operator>>(std::istream& is, EventInfo& evinfo);
 };
+
+const std::string show(const EventInfo& evinfo);
 
 struct Particle {
     // Particle ID according to Particle Data Group convention.
@@ -45,10 +46,11 @@ struct Particle {
     // three-momentum of the decaying particle, specified in the lab frame.
     double spinup;
 
-    const std::string show() const;
     bool operator<(const Particle& rhs) const;
     friend std::istream& operator>>(std::istream& is, Particle& p);
 };
+
+const std::string show(const Particle& p);
 
 using Particles = std::vector<Particle>;
 const std::string show(const Particles& ps);
@@ -82,8 +84,9 @@ public:
     void operator()(EventStatus s) {
         status_ = s;
     }
-    const std::string show() const;
 };
+
+const std::string show(const LHEFEvent& ev);
 
 using ParticleID = std::vector<int>;
 

@@ -34,7 +34,7 @@ int main(int argc, char* argv[]) {
     for ( ; !lhe.empty(); lhe = lhef::ParseEvent(&filename)) {
         ++num_eve;
         std::cout << "-- Event number: " << num_eve << '\n'
-                  << lhe.show() << '\n';
+                  << lhef::show(lhe) << '\n';
         initstates = lhef::InitialStates(lhe);
         std::cout << "---- Initial-state particles:\n"
                   << lhef::show(initstates) << '\n';
@@ -44,7 +44,8 @@ int main(int argc, char* argv[]) {
         leptons = lhef::ParticlesOf(is_lepton, lhe);
         std::cout << "---- Leptons:\n" << lhef::show(leptons) << '\n';
         lep_anc = lhef::Ancestor(leptons.front(), lhe);
-        std::cout << "---- Ancestor of one lepton:\n" << lep_anc.show() << '\n';
+        std::cout << "---- Ancestor of one lepton:\n"
+                  << lhef::show(lep_anc) << '\n';
         toplines = lhef::ParticleLinesOf(is_top, lhe);
         std::cout << "---- Lines of top quarks:\n";
         std::copy(toplines.cbegin(), toplines.cend(),
