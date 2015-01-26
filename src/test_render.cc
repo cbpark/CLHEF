@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include "type.h"
+#include "lhef.h"
 
 int main() {
     lhef::EventInfo evinfo(12, 0,

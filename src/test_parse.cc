@@ -3,7 +3,6 @@
 #include <iostream>
 #include <iterator>
 #include "lhef.h"
-#include "parser.h"
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
@@ -24,8 +23,10 @@ int main(int argc, char* argv[]) {
     lhef::LHEFEvent lhe = lhef::ParseEvent(&filename);
     lhef::Particles initstates;
     lhef::Particles finalstates;
-    lhef::ParticleID is_lepton = lhef::Electron;
-    is_lepton.insert(is_lepton.end(), lhef::Muon.begin(), lhef::Muon.end());
+    lhef::ParticleID is_lepton;
+    std::merge(lhef::Electron.cbegin(), lhef::Electron.cend(),
+               lhef::Muon.cbegin(), lhef::Muon.cend(),
+               std::back_inserter(is_lepton));
     lhef::Particles leptons;
     lhef::Particle lep_anc;
     lhef::ParticleLines toplines;
