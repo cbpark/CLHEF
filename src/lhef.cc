@@ -1,7 +1,6 @@
 #include <algorithm>
 #include <functional>
 #include <utility>
-#include <vector>
 #include "lhef.h"
 
 namespace lhef {
@@ -33,8 +32,10 @@ Particles FinalStates(const LHEFEvent& lhe) {
 }
 
 bool ParticleExists(const ParticleID& pid, const Particle& p) {
-    auto pos = std::find(pid.cbegin(), pid.cend(), p.idup);
-    return pos == pid.end()? false : true;
+    return std::any_of(pid.cbegin(), pid.cend(),
+                       [&] (const int& id) {
+                           return id == p.idup;
+                       });
 }
 
 Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
@@ -45,7 +46,7 @@ Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
 }
 
 ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
-    std::vector<int> line;
+    ParticleLines line;
     auto entry = lhe.particle_entries();
     for (const auto& e : entry) {
         Particle p = e.second;
