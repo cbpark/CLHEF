@@ -7,12 +7,12 @@ Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
                             const LHEFEvent& lhe) {
     Particles ps;
     auto entry = lhe.particle_entries();
-    std::for_each(entry.cbegin(), entry.cend(),
-                  [&] (const EventEntry::value_type& pmap) {
-                      auto p = pmap.second;
-                      if (pred(p)) {
-                          ps.push_back(p);
-                      }});
+    for (const auto& e : entry) {
+        auto p = e.second;
+        if (pred(p)) {
+            ps.push_back(p);
+        }
+    }
     return ps;
 }
 
@@ -35,7 +35,7 @@ bool ParticleExists(const ParticleID& pid, const Particle& p) {
 }
 
 Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
-    auto pred = [&] (const Particle& p) {
+    auto pred = [&pid] (const Particle& p) {
         return ParticleExists(pid, p);
     };
     return SelectParticlesBy(pred, lhe);
@@ -44,12 +44,12 @@ Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
 ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
     ParticleLines line;
     auto entry = lhe.particle_entries();
-    for (const auto& e : entry) {
-        auto p = e.second;
-        if (ParticleExists(pid, p)) {
-            line.push_back(e.first);
-        }
-    }
+    std::for_each(entry.cbegin(), entry.cend(),
+                  [&pid, &line] (const EventEntry::value_type& e) {
+                      auto p = e.second;
+                      if (ParticleExists(pid, p)) {
+                          line.push_back(e.first);
+                      }});
     return line;
 }
 
@@ -69,7 +69,7 @@ Particle Ancestor(const Particle& p, const LHEFEvent& lhe) {
 }
 
 Particles Daughters(int pline, const LHEFEvent& lhe) {
-    auto pred = [&] (const Particle& p) {
+    auto pred = [pline] (const Particle& p) {
         return p.mothup.first == pline;
     };
     return SelectParticlesBy(pred, lhe);
@@ -90,7 +90,7 @@ bool IsInMotherLines(int pline, const Particle& p, const LHEFEvent& lhe) {
 Particles FinalDaughters(int pline, const LHEFEvent& lhe) {
     Particles finalstates = FinalStates(lhe);
     auto pos = std::remove_if(finalstates.begin(), finalstates.end(),
-                              [&] (const Particle& p) {
+                              [pline, &lhe] (const Particle& p) {
                                   return !IsInMotherLines(pline, p, lhe);
                               });
     finalstates.erase(pos, finalstates.end());
