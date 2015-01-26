@@ -15,14 +15,14 @@ std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
 }
 
 std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
-    std::streamsize ss = os.precision();
-    os << std::setw(2) << evinfo.nup
-       << ' ' << std::setw(3) << evinfo.idprup
+    auto ss = os.precision();
+    os << std::setw(2)  << evinfo.nup
+       << std::setw(4)  << evinfo.idprup
        << std::setprecision(7) << std::scientific << std::uppercase
-       << ' ' << std::setw(14) << evinfo.xwgtup
-       << ' ' << std::setw(14) << evinfo.scalup
-       << ' ' << std::setw(14) << evinfo.aqedup
-       << ' ' << std::setw(14) << evinfo.aqcdup;
+       << std::setw(15) << evinfo.xwgtup
+       << std::setw(15) << evinfo.scalup
+       << std::setw(15) << evinfo.aqedup
+       << std::setw(15) << evinfo.aqcdup;
     os.precision(ss);
     return os;
 }
@@ -58,23 +58,23 @@ std::istream& operator>>(std::istream& is, Particle& p) {
 }
 
 std::ostream& operator<<(std::ostream& os, const Particle& p) {
-    os << ' ' << std::setw(8) << p.idup
-       << ' ' << std::setw(4) << p.istup
-       << ' ' << std::setw(4) << p.mothup.first
-       << ' ' << std::setw(4) << p.mothup.second
-       << ' ' << std::setw(4) << p.icolup.first
-       << ' ' << std::setw(4) << p.icolup.second;
+    os << std::setw(9) << p.idup
+       << std::setw(5) << p.istup
+       << std::setw(5) << p.mothup.first
+       << std::setw(5) << p.mothup.second
+       << std::setw(5) << p.icolup.first
+       << std::setw(5) << p.icolup.second;
 
-    std::streamsize ss = os.precision();
+    auto ss = os.precision();
 
     os << std::setprecision(11) << std::scientific << std::uppercase;
     for (const auto& momentum : p.pup) {
-        os << ' ' << std::setw(18) << momentum;
+        os << std::setw(19) << momentum;
     }
 
     os << std::fixed << std::setprecision(0)
-       << ' ' << std::setw(1) << p.vtimup << '.'
-       << ' ' << std::setw(2) << p.spinup << '.';
+       << std::setw(2) << p.vtimup << '.'
+       << std::setw(3) << p.spinup << '.';
     os.precision(ss);
 
     return os;

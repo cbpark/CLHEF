@@ -25,8 +25,7 @@ struct EventInfo {
 
     EventInfo() { }
     EventInfo(int _nup, int _idprup,
-              double _xwgtup, double _scalup,
-              double _aqedup, double _aqcdup)
+              double _xwgtup, double _scalup, double _aqedup, double _aqcdup)
         : nup(_nup), idprup(_idprup),
           xwgtup(_xwgtup), scalup(_scalup), aqedup(_aqedup), aqcdup(_aqcdup) { }
 
@@ -82,13 +81,13 @@ public:
     enum EventStatus {kEmpty, kFill};
 
 private:
-    EventStatus status_ = kEmpty;
+    EventStatus status_;
     std::pair<EventInfo, EventEntry> event_;
 
 public:
     explicit LHEFEvent(EventStatus s = kEmpty) : status_(s) { }
-    LHEFEvent(EventInfo evinfo, EventEntry ev)
-        : event_(std::make_pair(evinfo, ev)) { }
+    LHEFEvent(EventInfo evinfo, EventEntry ev) :
+        status_(kFill), event_({evinfo, ev}) { }
 
     void set_event(const EventInfo& evinfo, const EventEntry& entry) {
         event_ = std::make_pair(evinfo, entry);
