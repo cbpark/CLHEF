@@ -1,6 +1,7 @@
 #ifndef SRC_LHEF_H_
 #define SRC_LHEF_H_
 
+#include "pdg_numbering.h"
 #include "type.h"
 
 namespace lhef {

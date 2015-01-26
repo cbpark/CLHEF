@@ -24,11 +24,11 @@ int main(int argc, char* argv[]) {
     lhef::LHEFEvent lhe = lhef::ParseEvent(&filename);
     lhef::Particles initstates;
     lhef::Particles finalstates;
+    lhef::ParticleID is_lepton = lhef::Electron;
+    is_lepton.insert(is_lepton.end(), lhef::Muon.begin(), lhef::Muon.end());
     lhef::Particles leptons;
-    lhef::ParticleID is_lepton = {11, -11, 13, -13};
     lhef::Particle lep_anc;
     lhef::ParticleLines toplines;
-    lhef::ParticleID is_top = {6, -6};
     lhef::Particles daughters_of_top;
     int num_eve = 0;
     for ( ; !lhe.empty(); lhe = lhef::ParseEvent(&filename)) {
@@ -46,7 +46,7 @@ int main(int argc, char* argv[]) {
         lep_anc = lhef::Ancestor(leptons.front(), lhe);
         std::cout << "---- Ancestor of one lepton:\n"
                   << lhef::show(lep_anc) << '\n';
-        toplines = lhef::ParticleLinesOf(is_top, lhe);
+        toplines = lhef::ParticleLinesOf(lhef::Top, lhe);
         std::cout << "---- Lines of top quarks:\n";
         std::copy(toplines.cbegin(), toplines.cend(),
                   std::ostream_iterator<int>(std::cout, " "));
