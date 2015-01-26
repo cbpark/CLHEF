@@ -1,56 +1,48 @@
 #include <algorithm>
 #include <cstdlib>
+#include <functional>
 #include <utility>
 #include <vector>
 #include "lhef.h"
 
 namespace lhef {
-Particles InitialStates(const LHEFEvent& lhe) {
-    Particles initialstates;
+Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
+                            const LHEFEvent& lhe) {
+    Particles ps;
     auto entry = lhe.particle_entries();
     std::for_each(entry.cbegin(), entry.cend(),
                   [&] (const std::pair<int, Particle>& pmap) {
                       Particle p = pmap.second;
-                      if (p.mothup.first == 1) {
-                          initialstates.push_back(p);
-                      }
-                  });
-    return initialstates;
+                      if (pred(p)) {
+                          ps.push_back(p);
+                      }});
+    return ps;
+}
+
+Particles InitialStates(const LHEFEvent& lhe) {
+    auto pred = [] (const Particle& p) {
+        return p.mothup.first == 1;
+    };
+    return SelectParticlesBy(pred, lhe);
 }
 
 Particles FinalStates(const LHEFEvent& lhe) {
-    Particles finalstates;
-    auto entry = lhe.particle_entries();
-    std::for_each(entry.cbegin(), entry.cend(),
-                  [&] (const std::pair<int, Particle>& pmap) {
-                      Particle p = pmap.second;
-                      if (p.istup == 1) {
-                          finalstates.push_back(p);
-                      }
-                  });
-    return finalstates;
+    auto pred = [] (const Particle& p) {
+        return p.istup == 1;
+    };
+    return SelectParticlesBy(pred, lhe);
 }
 
 bool ParticleExists(const ParticleID& pid, const Particle& p) {
     auto pos = std::find(pid.cbegin(), pid.cend(), p.idup);
-    if (pos == pid.end()) {
-        return false;
-    } else {
-        return true;
-    }
+    return pos == pid.end()? false : true;
 }
 
 Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
-    Particles pars;
-    auto entry = lhe.particle_entries();
-    std::for_each(entry.cbegin(), entry.cend(),
-                  [&] (const std::pair<int, Particle>& pmap) {
-                      Particle p = pmap.second;
-                      if (ParticleExists(pid, p)) {
-                          pars.push_back(p);
-                      }
-                  });
-    return pars;
+    auto pred = [&] (const Particle& p) {
+        return ParticleExists(pid, p);
+    };
+    return SelectParticlesBy(pred, lhe);
 }
 
 ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
@@ -78,24 +70,14 @@ Particle Mother(const Particle& p, const LHEFEvent& lhe) {
 
 Particle Ancestor(const Particle& p, const LHEFEvent& lhe) {
     Particle mother = Mother(p, lhe);
-    if (mother.mothup.first == 1) {
-        return mother;
-    } else {
-        return Ancestor(mother, lhe);
-    }
+    return mother.mothup.first == 1? mother : Ancestor(mother, lhe);
 }
 
 Particles Daughters(int pline, const LHEFEvent& lhe) {
-    Particles daughters;
-    auto entry = lhe.particle_entries();
-    std::for_each(entry.cbegin(), entry.cend(),
-                  [&] (const std::pair<int, Particle>& pmap) {
-                      Particle p = pmap.second;
-                      if (p.mothup.first == pline) {
-                          daughters.push_back(p);
-                      }
-                  });
-    return daughters;
+    auto pred = [&] (const Particle& p) {
+        return p.mothup.first == pline;
+    };
+    return SelectParticlesBy(pred, lhe);
 }
 
 bool IsInMotherLine(int pline, const Particle& p, const LHEFEvent& lhe) {
