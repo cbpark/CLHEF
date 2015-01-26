@@ -3,6 +3,8 @@
 #include <ios>
 #include <map>
 
+using std::to_string;
+
 namespace lhef {
 std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
     is >> evinfo.nup
@@ -29,12 +31,12 @@ std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
 
 const std::string show(const EventInfo& evinfo) {
     std::string evinfo_str =
-        "EventInfo {nup=" + std::to_string(evinfo.nup)    +
-        ",idprup="        + std::to_string(evinfo.idprup) +
-        ",xwgtup="        + std::to_string(evinfo.xwgtup) +
-        ",scalup="        + std::to_string(evinfo.scalup) +
-        ",aqedup="        + std::to_string(evinfo.aqedup) +
-        ",aqcdup="        + std::to_string(evinfo.aqcdup) + "}";
+        "EventInfo {nup=" + to_string(evinfo.nup)    +
+        ",idprup="        + to_string(evinfo.idprup) +
+        ",xwgtup="        + to_string(evinfo.xwgtup) +
+        ",scalup="        + to_string(evinfo.scalup) +
+        ",aqedup="        + to_string(evinfo.aqedup) +
+        ",aqcdup="        + to_string(evinfo.aqcdup) + "}";
     return evinfo_str;
 }
 
@@ -82,22 +84,22 @@ std::ostream& operator<<(std::ostream& os, const Particle& p) {
 
 const std::string show(const Particle& p) {
     std::string p_str =
-        "Particle {idup=" + std::to_string(p.idup)          +
-        ",istup="         + std::to_string(p.istup)         +
-        ",mothup=("       + std::to_string(p.mothup.first)  +
-        ","               + std::to_string(p.mothup.second) + ")" +
-        ",icolup=("       + std::to_string(p.icolup.first)  +
-        ","               + std::to_string(p.icolup.second) + ")" +
+        "Particle {idup=" + to_string(p.idup)          +
+        ",istup="         + to_string(p.istup)         +
+        ",mothup=("       + to_string(p.mothup.first)  +
+        ","               + to_string(p.mothup.second) + ")" +
+        ",icolup=("       + to_string(p.icolup.first)  +
+        ","               + to_string(p.icolup.second) + ")" +
         ",pup=(";
 
     for (const auto &momentum : p.pup) {
-        p_str += std::to_string(momentum) + ",";
+        p_str += to_string(momentum) + ",";
     }
     p_str.pop_back();
 
     p_str = p_str + ")" +
-        ",vtimup=" + std::to_string(p.vtimup) +
-        ",spinup=" + std::to_string(p.spinup) + "}";
+        ",vtimup=" + to_string(p.vtimup) +
+        ",spinup=" + to_string(p.spinup) + "}";
 
     return p_str;
 }
@@ -115,9 +117,7 @@ const std::string show(const Particles& ps) {
 const std::string show(const EventEntry& entry) {
     std::string entry_str = "[";
     for (const auto& e : entry) {
-        entry_str +=
-            "(" + std::to_string(e.first) +
-            "," + show(e.second)         + "),";
+        entry_str += "(" + to_string(e.first) + "," + show(e.second) + "),";
     }
     entry_str.pop_back();
     entry_str += "]";
@@ -141,9 +141,7 @@ std::ostream& operator<<(std::ostream& os, const LHEFEvent& ev) {
 
 const std::string show(const LHEFEvent& ev) {
     std::string ev_str = "LHEFEvent (";
-    ev_str +=
-        show(ev.event_info())       + "," +
-        show(ev.particle_entries()) + ")";
+    ev_str += show(ev.event_info()) + "," + show(ev.particle_entries()) + ")";
     return ev_str;
 }
 }  // namespace lhef
