@@ -31,10 +31,7 @@ Particles FinalStates(const LHEFEvent& lhe) {
 }
 
 bool ParticleExists(const ParticleID& pid, const Particle& p) {
-    return std::any_of(pid.cbegin(), pid.cend(),
-                       [&] (const int& id) {
-                           return id == p.idup;
-                       });
+    return std::find(pid.cbegin(), pid.cend(), p.idup) != pid.cend();
 }
 
 Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
