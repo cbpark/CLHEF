@@ -44,17 +44,17 @@ Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
 ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
     ParticleLines line;
     auto entry = lhe.particle_entries();
-    std::for_each(entry.cbegin(), entry.cend(),
-                  [&pid, &line] (const EventEntry::value_type& e) {
-                      auto p = e.second;
-                      if (ParticleExists(pid, p)) {
-                          line.push_back(e.first);
-                      }});
+    for (const auto& e : entry) {
+        auto p = e.second;
+        if (ParticleExists(pid, p)) {
+            line.push_back(e.first);
+        }
+    }
     return line;
 }
 
 Particle Mother(const Particle& p, const LHEFEvent& lhe) {
-    int mo_line = p.mothup.first;
+    auto mo_line = p.mothup.first;
     auto entry = lhe.particle_entries();
     if (entry.find(mo_line) == entry.end()) {  // mother particle not found
         return entry.at(1);
@@ -64,7 +64,7 @@ Particle Mother(const Particle& p, const LHEFEvent& lhe) {
 }
 
 Particle Ancestor(const Particle& p, const LHEFEvent& lhe) {
-    Particle mother = Mother(p, lhe);
+    auto mother = Mother(p, lhe);
     return mother.mothup.first == 1? mother : Ancestor(mother, lhe);
 }
 
@@ -76,13 +76,13 @@ Particles Daughters(int pline, const LHEFEvent& lhe) {
 }
 
 bool IsInMotherLines(int pline, const Particle& p, const LHEFEvent& lhe) {
-    int mo_line = p.mothup.first;
+    auto mo_line = p.mothup.first;
     if (mo_line == 1) {
         return false;
     } else if (mo_line == pline) {
         return true;
     } else {
-        Particle direct_mother = Mother(p, lhe);
+        auto direct_mother = Mother(p, lhe);
         return IsInMotherLines(pline, direct_mother, lhe);
     }
 }
