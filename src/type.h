@@ -78,16 +78,16 @@ const std::string show(const EventEntry& entry);
 
 class LHEFEvent {
 public:
-    enum EventStatus {kEmpty, kFill};
+    enum class EventStatus {Empty, Fill};
 
 private:
     EventStatus status_;
     std::pair<EventInfo, EventEntry> event_;
 
 public:
-    explicit LHEFEvent(EventStatus s = kEmpty) : status_(s) { }
+    explicit LHEFEvent(EventStatus s = EventStatus::Empty) : status_(s) { }
     LHEFEvent(EventInfo evinfo, EventEntry ev) :
-        status_(kFill), event_({evinfo, ev}) { }
+        status_(EventStatus::Fill), event_({evinfo, ev}) { }
 
     void set_event(const EventInfo& evinfo, const EventEntry& entry) {
         event_ = std::make_pair(evinfo, entry);
@@ -99,7 +99,7 @@ public:
         return event_.second;
     }
     bool empty() const {
-        return (status_ == kEmpty? true : false);
+        return status_ == EventStatus::Empty;
     }
     void operator()(EventStatus s) {
         status_ = s;
