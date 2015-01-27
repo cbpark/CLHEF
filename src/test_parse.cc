@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        std::cout << "Usage: testparse input\n"
+        std::cout << "Usage: test_parse input\n"
                   << "    - input: Input file in "
                   << "Les Houches Event File format\n";
         return 1;
