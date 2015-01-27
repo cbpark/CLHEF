@@ -90,6 +90,7 @@ public:
         : status_(EventStatus::Fill), event_({evinfo, ev}) { }
 
     void set_event(const EventInfo& evinfo, const EventEntry& entry) {
+        status_ = EventStatus::Fill;
         event_ = std::make_pair(evinfo, entry);
     }
     EventInfo event_info() const {

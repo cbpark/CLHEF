@@ -45,7 +45,6 @@ Event ParseEvent(std::istream *is) {
             entry.insert({i + 1, p});
         }
         lhe.set_event(evinfo, entry);
-        lhe(Event::EventStatus::Fill);
     } else {
         lhe(Event::EventStatus::Empty);
     }
