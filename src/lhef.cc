@@ -5,7 +5,7 @@
 
 namespace lhef {
 Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
-                            const LHEFEvent& lhe) {
+                            const Event& lhe) {
     Particles ps;
     auto entry = lhe.particle_entries();
     for (const auto& e : entry) {
@@ -17,14 +17,14 @@ Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
     return ps;
 }
 
-Particles InitialStates(const LHEFEvent& lhe) {
+Particles InitialStates(const Event& lhe) {
     auto pred = [] (const Particle& p) {
         return p.mothup.first == 1;
     };
     return SelectParticlesBy(pred, lhe);
 }
 
-Particles FinalStates(const LHEFEvent& lhe) {
+Particles FinalStates(const Event& lhe) {
     auto pred = [] (const Particle& p) {
         return p.istup == 1;
     };
@@ -35,14 +35,14 @@ bool ParticleExists(const ParticleID& pid, const Particle& p) {
     return std::find(pid.cbegin(), pid.cend(), p.idup) != pid.cend();
 }
 
-Particles ParticlesOf(const ParticleID& pid, const LHEFEvent& lhe) {
+Particles ParticlesOf(const ParticleID& pid, const Event& lhe) {
     auto pred = [&pid] (const Particle& p) {
         return ParticleExists(pid, p);
     };
     return SelectParticlesBy(pred, lhe);
 }
 
-ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
+ParticleLines ParticleLinesOf(const ParticleID& pid, const Event& lhe) {
     ParticleLines line;
     auto entry = lhe.particle_entries();
     for (const auto& e : entry) {
@@ -54,7 +54,7 @@ ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
     return line;
 }
 
-Particle Mother(const Particle& p, const LHEFEvent& lhe) {
+Particle Mother(const Particle& p, const Event& lhe) {
     auto mo_line = p.mothup.first;
     auto entry = lhe.particle_entries();
     if (entry.find(mo_line) == entry.end()) {  // mother particle not found
@@ -64,19 +64,19 @@ Particle Mother(const Particle& p, const LHEFEvent& lhe) {
     }
 }
 
-Particle Ancestor(const Particle& p, const LHEFEvent& lhe) {
+Particle Ancestor(const Particle& p, const Event& lhe) {
     auto mother = Mother(p, lhe);
     return mother.mothup.first == 1? mother : Ancestor(mother, lhe);
 }
 
-Particles Daughters(int pline, const LHEFEvent& lhe) {
+Particles Daughters(int pline, const Event& lhe) {
     auto pred = [pline] (const Particle& p) {
         return p.mothup.first == pline;
     };
     return SelectParticlesBy(pred, lhe);
 }
 
-bool IsInMotherLines(int pline, const Particle& p, const LHEFEvent& lhe) {
+bool IsInMotherLines(int pline, const Particle& p, const Event& lhe) {
     auto mo_line = p.mothup.first;
     if (mo_line == 1) {
         return false;
@@ -88,7 +88,7 @@ bool IsInMotherLines(int pline, const Particle& p, const LHEFEvent& lhe) {
     }
 }
 
-Particles FinalDaughters(int pline, const LHEFEvent& lhe) {
+Particles FinalDaughters(int pline, const Event& lhe) {
     Particles finalstates = FinalStates(lhe);
     auto pos = std::remove_if(finalstates.begin(), finalstates.end(),
                               [pline, &lhe] (const Particle& p) {

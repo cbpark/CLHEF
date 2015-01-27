@@ -29,10 +29,10 @@ std::string EventStr(std::istream *is) {
     return event_line;
 }
 
-LHEFEvent ParseEvent(std::istream *is) {
+Event ParseEvent(std::istream *is) {
     std::string evstr = EventStr(is);
 
-    LHEFEvent lhe;
+    Event lhe;
     if (!evstr.empty()) {
         std::istringstream iss(evstr);
         EventInfo evinfo;
@@ -45,9 +45,9 @@ LHEFEvent ParseEvent(std::istream *is) {
             entry.insert({i + 1, p});
         }
         lhe.set_event(evinfo, entry);
-        lhe(LHEFEvent::EventStatus::Fill);
+        lhe(Event::EventStatus::Fill);
     } else {
-        lhe(LHEFEvent::EventStatus::Empty);
+        lhe(Event::EventStatus::Empty);
     }
     return lhe;
 }

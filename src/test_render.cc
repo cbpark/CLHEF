@@ -64,7 +64,7 @@ int main() {
         ++i;
     }
 
-    lhef::LHEFEvent ev(evinfo, entry);
+    lhef::Event ev(evinfo, entry);
     std::cout << "-- Rendering LHEF Event ...\n";
     std::cout << ev << '\n';
     std::cout << "-- Rendering done.\n";

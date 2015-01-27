@@ -4,7 +4,7 @@
 #include "type.h"
 
 namespace lhef {
-LHEFEvent ParseEvent(std::istream *is);
+Event ParseEvent(std::istream *is);
 }
 
 #endif  // SRC_PARSER_H_

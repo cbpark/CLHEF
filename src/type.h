@@ -76,7 +76,7 @@ const std::string show(const Particles& ps);
 using EventEntry = std::unordered_map<int, Particle>;
 const std::string show(const EventEntry& entry);
 
-class LHEFEvent {
+class Event {
 public:
     enum class EventStatus {Empty, Fill};
 
@@ -85,9 +85,9 @@ private:
     std::pair<EventInfo, EventEntry> event_;
 
 public:
-    explicit LHEFEvent(EventStatus s = EventStatus::Empty) : status_(s) { }
-    LHEFEvent(EventInfo evinfo, EventEntry ev) :
-        status_(EventStatus::Fill), event_({evinfo, ev}) { }
+    explicit Event(EventStatus s = EventStatus::Empty) : status_(s) { }
+    Event(const EventInfo& evinfo, const EventEntry& ev)
+        : status_(EventStatus::Fill), event_({evinfo, ev}) { }
 
     void set_event(const EventInfo& evinfo, const EventEntry& entry) {
         event_ = std::make_pair(evinfo, entry);
@@ -101,14 +101,14 @@ public:
     bool empty() const {
         return status_ == EventStatus::Empty;
     }
-    void operator()(EventStatus s) {
+    void operator()(const EventStatus& s) {
         status_ = s;
     }
 
-    friend std::ostream& operator<<(std::ostream& os, const LHEFEvent& ev);
+    friend std::ostream& operator<<(std::ostream& os, const Event& ev);
 };
 
-const std::string show(const LHEFEvent& ev);
+const std::string show(const Event& ev);
 
 using ParticleID = std::vector<int>;
 

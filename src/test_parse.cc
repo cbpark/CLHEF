@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         std::cout << "-- Reading \"" << argv[1] << "\" ...\n";
     }
 
-    lhef::LHEFEvent lhe = lhef::ParseEvent(&filename);
+    lhef::Event lhe = lhef::ParseEvent(&filename);
     lhef::Particles initstates;
     lhef::Particles finalstates;
     lhef::ParticleID is_lepton;

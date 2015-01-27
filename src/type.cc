@@ -124,7 +124,7 @@ const std::string show(const EventEntry& entry) {
     return entry_str;
 }
 
-std::ostream& operator<<(std::ostream& os, const LHEFEvent& ev) {
+std::ostream& operator<<(std::ostream& os, const Event& ev) {
     os << "<event>\n"
        << ev.event_.first << '\n';
 
@@ -139,8 +139,8 @@ std::ostream& operator<<(std::ostream& os, const LHEFEvent& ev) {
     return os;
 }
 
-const std::string show(const LHEFEvent& ev) {
-    std::string ev_str = "LHEFEvent (";
+const std::string show(const Event& ev) {
+    std::string ev_str = "Event (";
     ev_str += show(ev.event_info()) + "," + show(ev.particle_entries()) + ")";
     return ev_str;
 }
