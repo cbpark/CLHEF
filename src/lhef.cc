@@ -1,6 +1,7 @@
 #include "lhef.h"
 #include <algorithm>
 #include <functional>
+#include <utility>
 
 namespace lhef {
 Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
@@ -10,7 +11,7 @@ Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
     for (const auto& e : entry) {
         auto p = e.second;
         if (pred(p)) {
-            ps.push_back(p);
+            ps.push_back(std::move(p));
         }
     }
     return ps;
@@ -47,7 +48,7 @@ ParticleLines ParticleLinesOf(const ParticleID& pid, const LHEFEvent& lhe) {
     for (const auto& e : entry) {
         auto p = e.second;
         if (ParticleExists(pid, p)) {
-            line.push_back(e.first);
+            line.push_back(std::move(e.first));
         }
     }
     return line;
