@@ -48,6 +48,10 @@ bool Particle::operator<(const Particle& rhs) const {
     return TransMomentumSq(*this) < TransMomentumSq(rhs);
 }
 
+bool Particle::operator>(const Particle& rhs) const {
+    return TransMomentumSq(*this) > TransMomentumSq(rhs);
+}
+
 std::istream& operator>>(std::istream& is, Particle& p) {
     is >> p.idup
        >> p.istup
