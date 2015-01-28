@@ -6,4 +6,6 @@
 .#*
 .swp
 build
+*TAG*
+*PATH
 *.lhe
