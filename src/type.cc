@@ -44,12 +44,12 @@ double TransMomentumSq(const Particle& p) {
     return p.pup[0] * p.pup[0] + p.pup[1] * p.pup[1];
 }
 
-bool Particle::operator<(const Particle& rhs) const {
-    return TransMomentumSq(*this) < TransMomentumSq(rhs);
+bool operator<(const Particle& lhs, const Particle& rhs) {
+    return TransMomentumSq(lhs) < TransMomentumSq(rhs);
 }
 
-bool Particle::operator>(const Particle& rhs) const {
-    return TransMomentumSq(*this) > TransMomentumSq(rhs);
+bool operator>(const Particle& lhs, const Particle& rhs) {
+    return rhs < lhs;
 }
 
 std::istream& operator>>(std::istream& is, Particle& p) {

@@ -63,8 +63,8 @@ struct Particle {
           pup({{_pup1, _pup2, _pup3, _pup4, _pup5}}),
           vtimup(_vtimup), spinup(_spinup) { }
 
-    bool operator<(const Particle& rhs) const;
-    bool operator>(const Particle& rhs) const;
+    friend bool operator<(const Particle& lhs, const Particle& rhs);
+    friend bool operator>(const Particle& lhs, const Particle& rhs);
     friend std::istream& operator>>(std::istream& is, Particle& p);
     friend std::ostream& operator<<(std::ostream& os, const Particle& p);
 };
