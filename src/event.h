@@ -1,12 +1,12 @@
-#ifndef SRC_TYPE_H_
-#define SRC_TYPE_H_
+#ifndef SRC_EVENT_H_
+#define SRC_EVENT_H_
 
-#include <array>
 #include <iostream>
 #include <string>
 #include <unordered_map>
 #include <utility>
 #include <vector>
+#include "particle.h"
 
 namespace lhef {
 struct EventInfo {
@@ -34,45 +34,6 @@ struct EventInfo {
 };
 
 const std::string show(const EventInfo& evinfo);
-
-struct Particle {
-    // Particle ID according to Particle Data Group convention.
-    int idup = 0;
-    // Status code.
-    int istup = 0;
-    // Index of first and last mother.
-    std::pair<int, int> mothup{0, 0};
-    // Integer tag for the color flow line passing through the
-    // (anti-)color of the particle.
-    std::pair<int, int> icolup{0, 0};
-    // Lab frame momentum (P_x, P_y, P_z, E, M) of particle in GeV.
-    std::array<double, 5> pup{{0.0, 0.0, 0.0, 0.0, 0.0}};
-    // Invariant lifetime (distance from production to decay) in mm.
-    double vtimup = 0.0;
-    // Consine of the angle between the spin-vector of particle and the
-    // three-momentum of the decaying particle, specified in the lab frame.
-    double spinup = 0.0;
-
-    Particle() { }
-    Particle(int _idup, int _istdup,
-             int _mothup1, int _mothup2, int _icolup1, int _icolup2,
-             double _pup1, double _pup2, double _pup3,
-             double _pup4, double _pup5, double _vtimup, double _spinup)
-        : idup(_idup), istup(_istdup),
-          mothup({_mothup1, _mothup2}), icolup({_icolup1, _icolup2}),
-          pup({{_pup1, _pup2, _pup3, _pup4, _pup5}}),
-          vtimup(_vtimup), spinup(_spinup) { }
-
-    friend bool operator<(const Particle& lhs, const Particle& rhs);
-    friend bool operator>(const Particle& lhs, const Particle& rhs);
-    friend std::istream& operator>>(std::istream& is, Particle& p);
-    friend std::ostream& operator<<(std::ostream& os, const Particle& p);
-};
-
-const std::string show(const Particle& p);
-
-using Particles = std::vector<Particle>;
-const std::string show(const Particles& ps);
 
 using EventEntry = std::unordered_map<int, Particle>;
 const std::string show(const EventEntry& entry);
@@ -107,14 +68,12 @@ public:
         status_ = s;
     }
 
+    friend const std::string show(const Event& ev);
+
     friend std::ostream& operator<<(std::ostream& os, const Event& ev);
 };
 
 const std::string show(const Event& ev);
-
-using ParticleID = std::vector<int>;
-
-using ParticleLines = std::vector<int>;
 }  // namespace lhef
 
-#endif  // SRC_TYPE_H_
+#endif  // SRC_EVENT_H_

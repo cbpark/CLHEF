@@ -1,7 +1,7 @@
 #ifndef SRC_PDG_NUMBERING_H_
 #define SRC_PDG_NUMBERING_H_
 
-#include "type.h"
+#include "particle.h"
 
 namespace lhef {
 const ParticleID Electron = {11, -11};
