@@ -1,13 +1,13 @@
 #ifndef SRC_PARTICLE_H_
 #define SRC_PARTICLE_H_
 
+#include <CKinematics/kinematics.h>
 #include <array>
 #include <cmath>
 #include <iostream>
 #include <string>
 #include <utility>
 #include <vector>
-#include "kinematics.h"
 
 namespace lhef {
 class Particle {

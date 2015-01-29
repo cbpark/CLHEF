@@ -2,7 +2,6 @@
 #define SRC_LHEF_H_
 
 #include "event.h"
-#include "kinematics.h"
 #include "parser.h"
 #include "particle.h"
 #include "pdg_numbering.h"

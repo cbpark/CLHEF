@@ -3,9 +3,7 @@ CLHEF
 
 Tools for the LHEF analyses using C++. If you want to use Haskell, see [lhef-tools](https://github.com/cbpark/lhef-tools).
 
-## Usage
-
-You'll need [cmake](http://www.cmake.org) in order to build and install.
+## Installation
 
 ```shell
 git clone git@github.com:cbpark/CLHEF.git
@@ -15,7 +13,17 @@ make
 make install
 ```
 
-Note that it will be installed in `/usr/local` unless you specify the path for the installation via `-DCMAKE_INSTALL_PREFIX`. See `src/test_parse.cc` and `src/test_render.cc` for the example usage.
+Note that it will be installed in `/usr/local` unless you specify the path for the installation via `-DCMAKE_INSTALL_PREFIX`.
+
+### Prerequisite
+
+- C++ compiler supporting C++11 features,
+- [cmake](http://www.cmake.org),
+- [CKinematics](https://github.com/cbpark/CKinematics).
+
+## Usage
+
+See `src/test_parse.cc` and `src/test_render.cc` for the example usage.
 
 ## References
 
