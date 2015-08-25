@@ -3,6 +3,7 @@
 #include <ios>
 #include <map>
 
+using std::setw;
 using std::to_string;
 
 namespace lhef {
@@ -27,40 +28,35 @@ std::istream& operator>>(std::istream& is, GlobalInfo& info) {
 }
 
 std::ostream& operator<<(std::ostream& os, const GlobalInfo& info) {
-    os << "<init>\n";
-
     auto ss = os.precision();
-    os << std::setw(9) << info.idbmup.first
-       << std::setw(9) << info.idbmup.second
+
+    os << "<init>\n";
+    os << setw(9) << info.idbmup.first << setw(9) << info.idbmup.second
        << std::setprecision(11) << std::scientific << std::uppercase
-       << std::setw(19) << info.ebmup.first
-       << std::setw(19) << info.ebmup.second;
+       << setw(19) << info.ebmup.first << setw(19) << info.ebmup.second;
     os.precision(ss);
-    os << std::setw(2) << info.pdfgup.first
-       << std::setw(2) << info.pdfgup.second
-       << std::setw(6) << info.pdfsup.first
-       << std::setw(6) << info.pdfsup.second
-       << std::setw(2) << info.idwtup
-       << std::setw(3) << info.nprup << '\n';
+    os << setw(2) << info.pdfgup.first << setw(2) << info.pdfgup.second
+       << setw(6) << info.pdfsup.first << setw(6) << info.pdfsup.second
+       << setw(2) << info.idwtup
+       << setw(3) << info.nprup << '\n';
 
     auto xsecup_it = info.xsecup.begin();
     auto xerrup_it = info.xerrup.begin();
     auto xmaxup_it = info.xmaxup.begin();
     auto lprup_it = info.lprup.begin();
-    for ( ; xsecup_it != info.xsecup.end() ||
-              xerrup_it != info.xerrup.end() ||
-              xmaxup_it != info.xmaxup.end() ||
-              lprup_it != info.lprup.end();
+    for ( ; xsecup_it != info.xsecup.end() || xerrup_it != info.xerrup.end() ||
+              xmaxup_it != info.xmaxup.end() || lprup_it != info.lprup.end();
           ++xsecup_it, ++xerrup_it, ++xmaxup_it, ++lprup_it) {
         os << std::setprecision(11) << std::scientific << std::uppercase
-           << std::setw(19) << *xsecup_it
-           << std::setw(19) << *xerrup_it
-           << std::setw(19) << *xmaxup_it;
-        os.precision(ss);
-        os << std::setw(4) << *lprup_it << '\n';
+           << setw(19) << *xsecup_it
+           << setw(19) << *xerrup_it
+           << setw(19) << *xmaxup_it;
+        os << setw(4) << *lprup_it << '\n';
     }
 
     os << "</init>";
+
+    os.precision(ss);
     return os;
 }
 
@@ -76,13 +72,13 @@ std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
 
 std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
     auto ss = os.precision();
-    os << std::setw(2)  << evinfo.nup
-       << std::setw(4)  << evinfo.idprup
+    os << setw(2)  << evinfo.nup
+       << setw(4)  << evinfo.idprup
        << std::setprecision(7) << std::scientific << std::uppercase
-       << std::setw(15) << evinfo.xwgtup
-       << std::setw(15) << evinfo.scalup
-       << std::setw(15) << evinfo.aqedup
-       << std::setw(15) << evinfo.aqcdup;
+       << setw(15) << evinfo.xwgtup
+       << setw(15) << evinfo.scalup
+       << setw(15) << evinfo.aqedup
+       << setw(15) << evinfo.aqcdup;
     os.precision(ss);
     return os;
 }
