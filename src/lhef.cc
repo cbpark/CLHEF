@@ -1,9 +1,18 @@
 #include "lhef.h"
 #include <algorithm>
 #include <functional>
+#include <string>
 #include <utility>
 
 namespace lhef {
+std::string OpeningLine() {
+    return "<LesHouchesEvents version=\"1.0\">";
+}
+
+std::string ClosingLine() {
+    return "</LesHouchesEvents>";
+}
+
 Particles SelectParticlesBy(std::function<bool(const Particle&)> pred,
                             const Event& lhe) {
     Particles ps;

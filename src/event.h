@@ -9,6 +9,42 @@
 #include "particle.h"
 
 namespace lhef {
+struct GlobalInfo {
+    // PDG codes of the beams.
+    std::pair<int, int> idbmup;
+    // Energies of the beams.
+    std::pair<double, double> ebmup;
+    // Author groups of the PDF.
+    std::pair<int, int> pdfgup;
+    // ID of the PDF set.
+    std::pair<int, int> pdfsup;
+    // Weighting strategy.
+    int idwtup;
+    // Number of processes.
+    int nprup;
+    // Cross sections.
+    std::vector<double> xsecup;
+    // Cross section errors.
+    std::vector<double> xerrup;
+    // Maximum event weight.
+    std::vector<double> xmaxup;
+    // Process ID.
+    std::vector<int> lprup;
+
+    GlobalInfo() { }
+    GlobalInfo(int _idbmup1, int _idbmup2, double _ebmup1, double _ebmup2,
+               int _pdfgup1, int _pdfgup2, int _pdfsup1, int _pdfsup2,
+               int _idwtup, int _nprup,
+               std::vector<double> _xsecup, std::vector<double> _xerrup,
+               std::vector<double> _xmaxup, std::vector<int> _lprup)
+        : idbmup({_idbmup1, _idbmup2}), ebmup({_ebmup1, _ebmup2}),
+          pdfgup({_pdfgup1, _pdfgup2}), pdfsup({_pdfsup1, _pdfsup2}),
+          idwtup(_idwtup), nprup(_nprup),
+          xsecup(_xsecup), xerrup(_xerrup), xmaxup(_xmaxup), lprup(_lprup) { }
+
+    friend std::ostream& operator<<(std::ostream& os, const GlobalInfo& info);
+};
+
 struct EventInfo {
     // Number of particle entries in the event.
     int nup = 0;

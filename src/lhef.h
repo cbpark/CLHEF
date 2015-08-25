@@ -5,8 +5,13 @@
 #include "parser.h"
 #include "particle.h"
 #include "pdg_numbering.h"
+#include <string>
 
 namespace lhef {
+std::string OpeningLine();
+
+std::string ClosingLine();
+
 Particles InitialStates(const Event& lhe);
 
 Particles FinalStates(const Event& lhe);

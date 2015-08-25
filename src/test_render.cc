@@ -3,6 +3,10 @@
 #include "lhef.h"
 
 int main() {
+    lhef::GlobalInfo info(21, 21, 0.0, 0.0, 0, 0, 3, 0, 0, 1,
+                          std::vector<double>({0.0}), std::vector<double>({0.0}),
+                          std::vector<double>({1.0}), std::vector<int>({1}));
+
     lhef::EventInfo evinfo(12, 0,
                            0.2504000E-03, 0.1859065E+03,
                            0.7546771E-02, 0.1168023E+00);
@@ -66,6 +70,9 @@ int main() {
 
     lhef::Event ev(evinfo, entry);
     std::cout << "-- Rendering LHEF Event ...\n";
+    std::cout << lhef::OpeningLine() << '\n';
+    std::cout << info << '\n';
     std::cout << ev << '\n';
+    std::cout << lhef::ClosingLine() << '\n';
     std::cout << "-- Rendering done.\n";
 }
