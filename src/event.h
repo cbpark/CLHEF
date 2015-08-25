@@ -42,6 +42,7 @@ struct GlobalInfo {
           idwtup(_idwtup), nprup(_nprup),
           xsecup(_xsecup), xerrup(_xerrup), xmaxup(_xmaxup), lprup(_lprup) { }
 
+    friend std::istream& operator>>(std::istream& is, GlobalInfo& info);
     friend std::ostream& operator<<(std::ostream& os, const GlobalInfo& info);
 };
 

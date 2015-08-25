@@ -6,6 +6,26 @@
 using std::to_string;
 
 namespace lhef {
+std::istream& operator>>(std::istream& is, GlobalInfo& info) {
+    is >> info.idbmup.first >> info.idbmup.second
+       >> info.ebmup.first >> info.ebmup.second
+       >> info.pdfgup.first >> info.pdfgup.second
+       >> info.pdfsup.first >> info.pdfsup.second
+       >> info.idwtup >> info.nprup;
+
+    double _xsecup, _xerrup, _xmaxup;
+    int _lprup;
+    for (int i = 0; i < info.nprup; ++i) {
+        is >> _xsecup >> _xerrup >> _xmaxup >> _lprup;
+        info.xsecup.push_back(_xsecup);
+        info.xerrup.push_back(_xerrup);
+        info.xmaxup.push_back(_xmaxup);
+        info.lprup.push_back(_lprup);
+    }
+
+    return is;
+}
+
 std::ostream& operator<<(std::ostream& os, const GlobalInfo& info) {
     os << "<init>\n";
 
@@ -27,9 +47,9 @@ std::ostream& operator<<(std::ostream& os, const GlobalInfo& info) {
     auto xerrup_it = info.xerrup.begin();
     auto xmaxup_it = info.xmaxup.begin();
     auto lprup_it = info.lprup.begin();
-    for ( ; xsecup_it != info.xsecup.end() &&
-              xerrup_it != info.xerrup.end() &&
-              xmaxup_it != info.xmaxup.end() &&
+    for ( ; xsecup_it != info.xsecup.end() ||
+              xerrup_it != info.xerrup.end() ||
+              xmaxup_it != info.xmaxup.end() ||
               lprup_it != info.lprup.end();
           ++xsecup_it, ++xerrup_it, ++xmaxup_it, ++lprup_it) {
         os << std::setprecision(11) << std::scientific << std::uppercase
