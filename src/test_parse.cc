@@ -6,7 +6,7 @@
 
 int main(int argc, char* argv[]) {
     if (argc != 2) {
-        std::cout << "Usage: test_parse input\n"
+        std::cerr << "Usage: test_parse input\n"
                   << "    - input: Input file in "
                   << "Les Houches Event File format\n";
         return 1;
@@ -20,7 +20,7 @@ int main(int argc, char* argv[]) {
         std::cout << "-- Reading \"" << argv[1] << "\" ...\n";
     }
 
-    lhef::Event lhe = lhef::ParseEvent(&filename);
+    lhef::Event lhe = lhef::parseEvent(&filename);
     lhef::Particles initstates;
     lhef::Particles finalstates;
     lhef::ParticleID is_lepton;
@@ -32,27 +32,27 @@ int main(int argc, char* argv[]) {
     lhef::ParticleLines toplines;
     lhef::Particles daughters_of_top;
     int num_eve = 0;
-    for ( ; !lhe.empty(); lhe = lhef::ParseEvent(&filename)) {
+    for (; !lhe.empty(); lhe = lhef::parseEvent(&filename)) {
         ++num_eve;
-        std::cout << "-- Event number: " << num_eve << '\n'
-                  << lhef::show(lhe) << '\n';
-        initstates = lhef::InitialStates(lhe);
-        std::cout << "---- Initial-state particles:\n"
-                  << lhef::show(initstates) << '\n';
-        finalstates = lhef::FinalStates(lhe);
-        std::cout << "---- Final-state particles:\n"
-                  << lhef::show(finalstates) << '\n';
-        leptons = lhef::ParticlesOf(is_lepton, lhe);
+        std::cout << "-- Event number: " << num_eve << '\n' << lhef::show(lhe)
+                  << '\n';
+        initstates = lhef::initialStates(lhe);
+        std::cout << "---- Initial-state particles:\n" << lhef::show(initstates)
+                  << '\n';
+        finalstates = lhef::finalStates(lhe);
+        std::cout << "---- Final-state particles:\n" << lhef::show(finalstates)
+                  << '\n';
+        leptons = lhef::particlesOf(is_lepton, lhe);
         std::cout << "---- Leptons:\n" << lhef::show(leptons) << '\n';
-        lep_anc = lhef::Ancestor(leptons.front(), lhe);
-        std::cout << "---- Ancestor of one lepton:\n"
-                  << lhef::show(lep_anc) << '\n';
-        toplines = lhef::ParticleLinesOf(lhef::Top, lhe);
+        lep_anc = lhef::ancestor(leptons.front(), lhe);
+        std::cout << "---- Ancestor of one lepton:\n" << lhef::show(lep_anc)
+                  << '\n';
+        toplines = lhef::particleLinesOf(lhef::Top, lhe);
         std::cout << "---- Lines of top quarks:\n";
         std::copy(toplines.cbegin(), toplines.cend(),
                   std::ostream_iterator<int>(std::cout, " "));
         std::cout << '\n';
-        daughters_of_top = lhef::FinalDaughters(toplines.front(), lhe);
+        daughters_of_top = lhef::finalDaughters(toplines.front(), lhe);
         std::cout << "---- Daughters of one top quark:\n"
                   << lhef::show(daughters_of_top) << '\n';
     }

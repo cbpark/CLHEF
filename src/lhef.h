@@ -8,25 +8,25 @@
 #include <string>
 
 namespace lhef {
-std::string OpeningLine();
+std::string openingLine();
 
-std::string ClosingLine();
+std::string closingLine();
 
-Particles InitialStates(const Event& lhe);
+Particles initialStates(const Event& lhe);
 
-Particles FinalStates(const Event& lhe);
+Particles finalStates(const Event& lhe);
 
-Particles ParticlesOf(const ParticleID& pid, const Event& lhe);
+Particles particlesOf(const ParticleID& pid, const Event& lhe);
 
-ParticleLines ParticleLinesOf(const ParticleID& pid, const Event& lhe);
+ParticleLines particleLinesOf(const ParticleID& pid, const Event& lhe);
 
-Particle Mother(const Particle& p, const Event& lhe);
+Particle mother(const Particle& p, const Event& lhe);
 
-Particle Ancestor(const Particle& p, const Event& lhe);
+Particle ancestor(const Particle& p, const Event& lhe);
 
-Particles Daughters(int pline, const Event& lhe);
+Particles daughters(int pline, const Event& lhe);
 
-Particles FinalDaughters(int pline, const Event& lhe);
+Particles finalDaughters(int pline, const Event& lhe);
 }  // namespace lhef
 
 #endif  // SRC_LHEF_H_

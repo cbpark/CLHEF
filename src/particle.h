@@ -30,50 +30,34 @@ private:
     double spinup_ = 0.0;
 
 public:
-    Particle() { }
+    Particle() {}
     Particle(const Energy& e, const Px& px, const Py& py, const Pz& pz) {
-        double m = InvariantMass(e, px, py, pz);
+        double m = invariantMass(e, px, py, pz);
         pup_ = {{px.value, py.value, pz.value, e.value, m}};
     }
-    Particle(int idup, int istdup,
-             int mothup1, int mothup2, int icolup1, int icolup2,
-             double pup1, double pup2, double pup3,
-             double pup4, double pup5, double vtimup, double spinup)
-        : idup_(idup), istup_(istdup),
-          mothup_({mothup1, mothup2}), icolup_({icolup1, icolup2}),
+    Particle(int idup, int istdup, int mothup1, int mothup2, int icolup1,
+             int icolup2, double pup1, double pup2, double pup3, double pup4,
+             double pup5, double vtimup, double spinup)
+        : idup_(idup),
+          istup_(istdup),
+          mothup_({mothup1, mothup2}),
+          icolup_({icolup1, icolup2}),
           pup_({{pup1, pup2, pup3, pup4, pup5}}),
-          vtimup_(vtimup), spinup_(spinup) { }
+          vtimup_(vtimup),
+          spinup_(spinup) {}
 
-    int pid() const {
-        return idup_;
-    }
-    int status() const {
-        return istup_;
-    }
-    std::pair<int, int> mother() const {
-        return mothup_;
-    }
-    double px() const {
-        return pup_[0];
-    }
-    double py() const {
-        return pup_[1];
-    }
-    double pz() const {
-        return pup_[2];
-    }
-    double energy() const {
-        return pup_[3];
-    }
-    double mass() const {
-        return pup_[4];
-    }
+    int pid() const { return idup_; }
+    int status() const { return istup_; }
+    std::pair<int, int> mother() const { return mothup_; }
+    double px() const { return pup_[0]; }
+    double py() const { return pup_[1]; }
+    double pz() const { return pup_[2]; }
+    double energy() const { return pup_[3]; }
+    double mass() const { return pup_[4]; }
     double pt() const {
         return std::sqrt(pup_[0] * pup_[0] + pup_[1] * pup_[1]);
     }
-    double decay_length() const {
-        return vtimup_;
-    }
+    double decayLength() const { return vtimup_; }
 
     friend const std::string show(const Particle& p);
 
@@ -84,8 +68,14 @@ public:
         return rhs < lhs;
     }
     Particle& operator+=(const Particle& rhs);
+    Particle& operator-=(const Particle& rhs);
     friend Particle operator+(Particle lhs, const Particle& rhs) {
-        return lhs += rhs;
+        lhs += rhs;
+        return lhs;
+    }
+    friend Particle operator-(Particle lhs, const Particle& rhs) {
+        lhs -= rhs;
+        return lhs;
     }
     friend std::istream& operator>>(std::istream& is, Particle& p);
     friend std::ostream& operator<<(std::ostream& os, const Particle& p);

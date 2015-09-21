@@ -3,16 +3,16 @@
 #include <string>
 
 namespace lhef {
-void SkipTillEventLine(std::istream *is) {
+void skipTillEventLine(std::istream *is) {
     std::string line;
-    while (std::getline(*is, line)
-           && line.find("<event") == std::string::npos) {
+    while (std::getline(*is, line) &&
+           line.find("<event") == std::string::npos) {
         continue;
     }
 }
 
-std::string EventStr(std::istream *is) {
-    SkipTillEventLine(is);
+std::string eventStr(std::istream *is) {
+    skipTillEventLine(is);
 
     std::string event_line(""), line;
     while (std::getline(*is, line)) {
@@ -29,8 +29,8 @@ std::string EventStr(std::istream *is) {
     return event_line;
 }
 
-Event ParseEvent(std::istream *is) {
-    std::string evstr = EventStr(is);
+Event parseEvent(std::istream *is) {
+    std::string evstr = eventStr(is);
 
     Event lhe;
     if (!evstr.empty()) {
@@ -44,7 +44,7 @@ Event ParseEvent(std::istream *is) {
             iss >> p;
             entry.insert({i + 1, p});
         }
-        lhe.set_event(evinfo, entry);
+        lhe.setEvent(evinfo, entry);
     } else {
         lhe(Event::EventStatus::Empty);
     }
