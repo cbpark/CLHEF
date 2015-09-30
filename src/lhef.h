@@ -1,11 +1,12 @@
 #ifndef SRC_LHEF_H_
 #define SRC_LHEF_H_
 
+#include <string>
+
 #include "event.h"
 #include "parser.h"
 #include "particle.h"
 #include "pdg_numbering.h"
-#include <string>
 
 namespace lhef {
 std::string openingLine();
