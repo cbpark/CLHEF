@@ -55,9 +55,7 @@ public:
     double pz() const { return pup_[2]; }
     double energy() const { return pup_[3]; }
     double mass() const { return pup_[4]; }
-    double pt() const {
-        return std::sqrt(pup_[0] * pup_[0] + pup_[1] * pup_[1]);
-    }
+    double pt() const { return std::hypot(pup_[0], pup_[1]); }
     double decayLength() const { return vtimup_; }
 
     friend const std::string show(const Particle& p);
