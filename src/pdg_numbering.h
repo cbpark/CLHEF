@@ -1,3 +1,5 @@
+/* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
+
 #ifndef SRC_PDG_NUMBERING_H_
 #define SRC_PDG_NUMBERING_H_
 

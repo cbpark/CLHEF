@@ -1,5 +1,6 @@
-#include "parser.h"
+/* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
+#include "parser.h"
 #include <sstream>
 #include <string>
 

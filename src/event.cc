@@ -1,3 +1,5 @@
+/* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
+
 #include "event.h"
 #include <iomanip>
 #include <ios>
@@ -7,7 +9,7 @@ using std::setw;
 using std::to_string;
 
 namespace lhef {
-std::istream& operator>>(std::istream& is, GlobalInfo& info) {
+std::istream &operator>>(std::istream &is, GlobalInfo &info) {
     is >> info.idbmup.first >> info.idbmup.second >> info.ebmup.first >>
         info.ebmup.second >> info.pdfgup.first >> info.pdfgup.second >>
         info.pdfsup.first >> info.pdfsup.second >> info.idwtup >> info.nprup;
@@ -25,7 +27,7 @@ std::istream& operator>>(std::istream& is, GlobalInfo& info) {
     return is;
 }
 
-std::ostream& operator<<(std::ostream& os, const GlobalInfo& info) {
+std::ostream &operator<<(std::ostream &os, const GlobalInfo &info) {
     auto ss = os.precision();
 
     os << "<init>\n";
@@ -56,13 +58,13 @@ std::ostream& operator<<(std::ostream& os, const GlobalInfo& info) {
     return os;
 }
 
-std::istream& operator>>(std::istream& is, EventInfo& evinfo) {
+std::istream &operator>>(std::istream &is, EventInfo &evinfo) {
     is >> evinfo.nup >> evinfo.idprup >> evinfo.xwgtup >> evinfo.scalup >>
         evinfo.aqedup >> evinfo.aqcdup;
     return is;
 }
 
-std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
+std::ostream &operator<<(std::ostream &os, const EventInfo &evinfo) {
     auto ss = os.precision();
     os << setw(2) << evinfo.nup << setw(4) << evinfo.idprup
        << std::setprecision(7) << std::scientific << std::uppercase << setw(15)
@@ -72,18 +74,19 @@ std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo) {
     return os;
 }
 
-const std::string show(const EventInfo& evinfo) {
-    std::string evinfo_str =
-        "EventInfo {nup=" + to_string(evinfo.nup) + ",idprup=" +
-        to_string(evinfo.idprup) + ",xwgtup=" + to_string(evinfo.xwgtup) +
-        ",scalup=" + to_string(evinfo.scalup) + ",aqedup=" +
-        to_string(evinfo.aqedup) + ",aqcdup=" + to_string(evinfo.aqcdup) + "}";
+const std::string show(const EventInfo &evinfo) {
+    std::string evinfo_str = "EventInfo {nup=" + to_string(evinfo.nup) +
+                             ",idprup=" + to_string(evinfo.idprup) +
+                             ",xwgtup=" + to_string(evinfo.xwgtup) +
+                             ",scalup=" + to_string(evinfo.scalup) +
+                             ",aqedup=" + to_string(evinfo.aqedup) +
+                             ",aqcdup=" + to_string(evinfo.aqcdup) + "}";
     return evinfo_str;
 }
 
-const std::string show(const EventEntry& entry) {
+const std::string show(const EventEntry &entry) {
     std::string entry_str = "[";
-    for (const auto& e : entry) {
+    for (const auto &e : entry) {
         entry_str += "(" + to_string(e.first) + "," + show(e.second) + "),";
     }
     entry_str.pop_back();
@@ -91,19 +94,19 @@ const std::string show(const EventEntry& entry) {
     return entry_str;
 }
 
-std::ostream& operator<<(std::ostream& os, const Event& ev) {
+std::ostream &operator<<(std::ostream &os, const Event &ev) {
     os << "<event>\n" << ev.event_.first << '\n';
 
     // EventEntry is unordered_map. It has to be ordered.
     std::map<int, Particle> entry_ordered(ev.event_.second.cbegin(),
                                           ev.event_.second.cend());
-    for (const auto& entry : entry_ordered) os << entry.second << '\n';
+    for (const auto &entry : entry_ordered) os << entry.second << '\n';
 
     os << "</event>";
     return os;
 }
 
-const std::string show(const Event& ev) {
+const std::string show(const Event &ev) {
     std::string ev_str = "Event (";
     ev_str += show(ev.event_.first) + "," + show(ev.event_.second) + ")";
     return ev_str;

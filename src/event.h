@@ -1,3 +1,5 @@
+/* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
+
 #ifndef SRC_EVENT_H_
 #define SRC_EVENT_H_
 
@@ -6,7 +8,6 @@
 #include <unordered_map>
 #include <utility>
 #include <vector>
-
 #include "particle.h"
 
 namespace lhef {
@@ -49,8 +50,8 @@ struct GlobalInfo {
           xmaxup(_xmaxup),
           lprup(_lprup) {}
 
-    friend std::istream& operator>>(std::istream& is, GlobalInfo& info);
-    friend std::ostream& operator<<(std::ostream& os, const GlobalInfo& info);
+    friend std::istream &operator>>(std::istream &is, GlobalInfo &info);
+    friend std::ostream &operator<<(std::ostream &os, const GlobalInfo &info);
 };
 
 struct EventInfo {
@@ -77,14 +78,14 @@ struct EventInfo {
           aqedup(_aqedup),
           aqcdup(_aqcdup) {}
 
-    friend std::istream& operator>>(std::istream& is, EventInfo& evinfo);
-    friend std::ostream& operator<<(std::ostream& os, const EventInfo& evinfo);
+    friend std::istream &operator>>(std::istream &is, EventInfo &evinfo);
+    friend std::ostream &operator<<(std::ostream &os, const EventInfo &evinfo);
 };
 
-const std::string show(const EventInfo& evinfo);
+const std::string show(const EventInfo &evinfo);
 
 using EventEntry = std::unordered_map<int, Particle>;
-const std::string show(const EventEntry& entry);
+const std::string show(const EventEntry &entry);
 
 class Event {
 public:
@@ -96,10 +97,10 @@ private:
 
 public:
     explicit Event(EventStatus s = EventStatus::Empty) : status_(s) {}
-    Event(const EventInfo& evinfo, const EventEntry& ev)
+    Event(const EventInfo &evinfo, const EventEntry &ev)
         : status_(EventStatus::Fill), event_({evinfo, ev}) {}
 
-    void setEvent(const EventInfo& evinfo, const EventEntry& entry) {
+    void setEvent(const EventInfo &evinfo, const EventEntry &entry) {
         status_ = EventStatus::Fill;
         event_ = std::make_pair(evinfo, entry);
     }
@@ -107,14 +108,14 @@ public:
     EventEntry particleEntries() const { return event_.second; }
     bool empty() const { return status_ == EventStatus::Empty; }
 
-    void operator()(const EventStatus& s) { status_ = s; }
+    void operator()(const EventStatus &s) { status_ = s; }
 
-    friend const std::string show(const Event& ev);
+    friend const std::string show(const Event &ev);
 
-    friend std::ostream& operator<<(std::ostream& os, const Event& ev);
+    friend std::ostream &operator<<(std::ostream &os, const Event &ev);
 };
 
-const std::string show(const Event& ev);
+const std::string show(const Event &ev);
 }  // namespace lhef
 
 #endif  // SRC_EVENT_H_

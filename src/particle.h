@@ -1,3 +1,5 @@
+/* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
+
 #ifndef SRC_PARTICLE_H_
 #define SRC_PARTICLE_H_
 
@@ -7,8 +9,7 @@
 #include <string>
 #include <utility>
 #include <vector>
-
-#include "CKinematics/kinematics.h"
+#include "kinematics.h"
 
 namespace lhef {
 class Particle {
@@ -32,8 +33,8 @@ private:
 
 public:
     Particle() {}
-    Particle(const Energy& e, const Px& px, const Py& py, const Pz& pz) {
-        double m = invariantMass(e, px, py, pz);
+    Particle(const Energy &e, const Px &px, const Py &py, const Pz &pz) {
+        const double m = invariantMass(e, px, py, pz);
         pup_ = {{px.value, py.value, pz.value, e.value, m}};
     }
     Particle(int idup, int istdup, int mothup1, int mothup2, int icolup1,
@@ -58,32 +59,32 @@ public:
     double pt() const { return std::hypot(pup_[0], pup_[1]); }
     double decayLength() const { return vtimup_; }
 
-    friend const std::string show(const Particle& p);
+    friend const std::string show(const Particle &p);
 
-    friend bool operator<(const Particle& lhs, const Particle& rhs) {
+    friend bool operator<(const Particle &lhs, const Particle &rhs) {
         return lhs.pt() < rhs.pt();
     }
-    friend bool operator>(const Particle& lhs, const Particle& rhs) {
+    friend bool operator>(const Particle &lhs, const Particle &rhs) {
         return rhs < lhs;
     }
-    Particle& operator+=(const Particle& rhs);
-    Particle& operator-=(const Particle& rhs);
-    friend Particle operator+(Particle lhs, const Particle& rhs) {
+    Particle &operator+=(const Particle &rhs);
+    Particle &operator-=(const Particle &rhs);
+    friend Particle operator+(Particle lhs, const Particle &rhs) {
         lhs += rhs;
         return lhs;
     }
-    friend Particle operator-(Particle lhs, const Particle& rhs) {
+    friend Particle operator-(Particle lhs, const Particle &rhs) {
         lhs -= rhs;
         return lhs;
     }
-    friend std::istream& operator>>(std::istream& is, Particle& p);
-    friend std::ostream& operator<<(std::ostream& os, const Particle& p);
+    friend std::istream &operator>>(std::istream &is, Particle &p);
+    friend std::ostream &operator<<(std::ostream &os, const Particle &p);
 };
 
-const std::string show(const Particle& p);
+const std::string show(const Particle &p);
 
 using Particles = std::vector<Particle>;
-const std::string show(const Particles& ps);
+const std::string show(const Particles &ps);
 
 using ParticleID = std::vector<int>;
 

@@ -1,5 +1,4 @@
-CLHEF
-=====
+# CLHEF
 
 Tools for the LHEF analyses using C++. If you want to use Haskell, see [lhef-tools](https://github.com/cbpark/lhef-tools).
 
@@ -7,19 +6,15 @@ Tools for the LHEF analyses using C++. If you want to use Haskell, see [lhef-too
 
 ```shell
 git clone git@github.com:cbpark/CLHEF.git
-cd CLHEF && mkdir build && cd build
-cmake -DCMAKE_INSTALL_PREFIX=/some/where ..
+./configure
 make
-make install
+make install-strip
 ```
-
-Note that it will be installed in `/usr/local` unless you specify the path for the installation via `-DCMAKE_INSTALL_PREFIX`.
 
 ### Prerequisite
 
-- C++ compiler supporting C++11 features,
-- [cmake](http://www.cmake.org),
-- [CKinematics](https://github.com/cbpark/CKinematics).
+- C++ compiler supporting C++14 features,
+- (optional) [ROOT](https://root.cern.ch/).
 
 ## Usage
 
