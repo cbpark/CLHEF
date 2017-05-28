@@ -24,3 +24,5 @@ build
 *PATH
 *.lhe
 *.gz
+test_parse
+test_render

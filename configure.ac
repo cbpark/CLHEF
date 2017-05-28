@@ -26,5 +26,14 @@ ROOT_PATH(,AC_MSG_NOTICE([ROOT $ROOTVERSION is found])
            HAVE_ROOT=1, HAVE_ROOT=0)
 AM_CONDITIONAL([USE_ROOT], [test "$HAVE_ROOT" -eq 1])
 
+AC_ARG_ENABLE([debug],
+[  --enable-debug          turn on debugging],
+[case "${enableval}" in
+  yes) debug=true ;;
+  no)  debug=false ;;
+  *) AC_MSG_ERROR([bad value ${enableval} for --enable-debug]) ;;
+esac],[debug=false])
+AM_CONDITIONAL([DEBUG], [test x$debug = xtrue])
+
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
