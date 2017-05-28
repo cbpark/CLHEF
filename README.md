@@ -1,15 +1,17 @@
 # CLHEF
 
-Tools for the LHEF analyses using C++. If you want to use Haskell, see [lhef-tools](https://github.com/cbpark/lhef-tools).
+Tools for the [Les Houches Event File](http://home.thep.lu.se/~leif/LHEF/) (LHEF) analyses using C++. If you want to use Haskell, see [lhef-tools](https://github.com/cbpark/lhef-tools).
 
 ## Installation
 
-```shell
+```
 git clone git@github.com:cbpark/CLHEF.git
 ./configure
 make
 make install-strip
 ```
+
+If ROOT is not located in the system path, it can be set by `./configure --with-rootsys=path/of/root`.
 
 ### Prerequisite
 
