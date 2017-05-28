@@ -4,7 +4,7 @@
 #include <iterator>
 #include "lhef.h"
 
-int main(int argc, char* argv[]) {
+int main(int argc, char *argv[]) {
     if (argc != 2) {
         std::cerr << "Usage: test_parse input\n"
                   << "    - input: Input file in "
@@ -34,19 +34,19 @@ int main(int argc, char* argv[]) {
     int num_eve = 0;
     for (; !lhe.empty(); lhe = lhef::parseEvent(&filename)) {
         ++num_eve;
-        std::cout << "-- Event number: " << num_eve << '\n' << lhef::show(lhe)
-                  << '\n';
+        std::cout << "-- Event number: " << num_eve << '\n'
+                  << lhef::show(lhe) << '\n';
         initstates = lhef::initialStates(lhe);
-        std::cout << "---- Initial-state particles:\n" << lhef::show(initstates)
-                  << '\n';
+        std::cout << "---- Initial-state particles:\n"
+                  << lhef::show(initstates) << '\n';
         finalstates = lhef::finalStates(lhe);
-        std::cout << "---- Final-state particles:\n" << lhef::show(finalstates)
-                  << '\n';
+        std::cout << "---- Final-state particles:\n"
+                  << lhef::show(finalstates) << '\n';
         leptons = lhef::particlesOf(is_lepton, lhe);
         std::cout << "---- Leptons:\n" << lhef::show(leptons) << '\n';
         lep_anc = lhef::ancestor(leptons.front(), lhe);
-        std::cout << "---- Ancestor of one lepton:\n" << lhef::show(lep_anc)
-                  << '\n';
+        std::cout << "---- Ancestor of one lepton:\n"
+                  << lhef::show(lep_anc) << '\n';
         toplines = lhef::particleLinesOf(lhef::Top, lhe);
         std::cout << "---- Lines of top quarks:\n";
         std::copy(toplines.cbegin(), toplines.cend(),

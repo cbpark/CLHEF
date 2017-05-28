@@ -20,7 +20,7 @@ If ROOT is not located in the system path, it can be set by `./configure --with-
 
 ## Usage
 
-See `src/test_parse.cc` and `src/test_render.cc` for the example usage.
+See [`src/test_parse.cc`](src/test_parse.cc) and [`src/test_render.cc`](src/test_render.cc) for the example usage.
 
 ## References
 

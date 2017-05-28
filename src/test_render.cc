@@ -51,7 +51,7 @@ int main() {
 
     lhef::EventEntry entry;
     int i = 1;
-    for (const auto& p : ps) {
+    for (const auto &p : ps) {
         entry.insert({i, p});
         ++i;
     }
