@@ -143,7 +143,7 @@ am__v_lt_0 = --silent
 am__v_lt_1 = 
 libCLHEF_la_LINK = $(LIBTOOL) $(AM_V_lt) --tag=CXX $(AM_LIBTOOLFLAGS) \
 	$(LIBTOOLFLAGS) --mode=link $(CXXLD) $(libCLHEF_la_CXXFLAGS) \
-	$(CXXFLAGS) $(libCLHEF_la_LDFLAGS) $(LDFLAGS) -o $@
+	$(CXXFLAGS) $(AM_LDFLAGS) $(LDFLAGS) -o $@
 AM_V_P = $(am__v_P_@AM_V@)
 am__v_P_ = $(am__v_P_@AM_DEFAULT_V@)
 am__v_P_0 = false
@@ -341,11 +341,10 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CXXFLAGS = -march=native -Wall -Wextra -std=c++14 -pedantic -I$(top_srcdir)/src
+AM_CXXFLAGS = -O2 -Wall -Wextra -std=c++14 -pedantic -I$(top_srcdir)/src
 lib_LTLIBRARIES = libCLHEF.la
 libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc
 @USE_ROOT_TRUE@libCLHEF_la_CXXFLAGS = $(AM_CXXFLAGS) @ROOTCFLAGS@
-@USE_ROOT_TRUE@libCLHEF_la_LDFLAGS = $(AM_LDFLAGS) @ROOTLIBS@
 pkginclude_HEADERS = event.h lhef.h parser.h particle.h kinematics.h \
 	pdg_numbering.h
 

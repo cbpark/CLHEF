@@ -16898,172 +16898,6 @@ ac_compiler_gnu=$ac_cv_cxx_compiler_gnu
 
 
 
-# ROOT (http://root.cern.ch/)
-
-
-# Check whether --with-rootsys was given.
-if test "${with_rootsys+set}" = set; then :
-  withval=$with_rootsys; user_rootsys=$withval
-else
-  user_rootsys="none"
-fi
-
-  if test ! x"$user_rootsys" = xnone; then
-    rootbin="$user_rootsys/bin"
-  elif test ! x"$ROOTSYS" = x ; then
-    rootbin="$ROOTSYS/bin"
-  else
-   rootbin=$PATH
-  fi
-  # Extract the first word of "root-config ", so it can be a program name with args.
-set dummy root-config ; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_ROOTCONF+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $ROOTCONF in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_ROOTCONF="$ROOTCONF" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $rootbin
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_ROOTCONF="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  test -z "$ac_cv_path_ROOTCONF" && ac_cv_path_ROOTCONF="no"
-  ;;
-esac
-fi
-ROOTCONF=$ac_cv_path_ROOTCONF
-if test -n "$ROOTCONF"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ROOTCONF" >&5
-$as_echo "$ROOTCONF" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-  # Extract the first word of "root ", so it can be a program name with args.
-set dummy root ; ac_word=$2
-{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
-$as_echo_n "checking for $ac_word... " >&6; }
-if ${ac_cv_path_ROOTEXEC+:} false; then :
-  $as_echo_n "(cached) " >&6
-else
-  case $ROOTEXEC in
-  [\\/]* | ?:[\\/]*)
-  ac_cv_path_ROOTEXEC="$ROOTEXEC" # Let the user override the test with a path.
-  ;;
-  *)
-  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
-for as_dir in $rootbin
-do
-  IFS=$as_save_IFS
-  test -z "$as_dir" && as_dir=.
-    for ac_exec_ext in '' $ac_executable_extensions; do
-  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
-    ac_cv_path_ROOTEXEC="$as_dir/$ac_word$ac_exec_ext"
-    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
-    break 2
-  fi
-done
-  done
-IFS=$as_save_IFS
-
-  test -z "$ac_cv_path_ROOTEXEC" && ac_cv_path_ROOTEXEC="no"
-  ;;
-esac
-fi
-ROOTEXEC=$ac_cv_path_ROOTEXEC
-if test -n "$ROOTEXEC"; then
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ROOTEXEC" >&5
-$as_echo "$ROOTEXEC" >&6; }
-else
-  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-fi
-
-
-
-  if test ! x"$ROOTCONF" = "xno"; then
-
-    # define some variables
-    ROOTLIBDIR=`$ROOTCONF --libdir`
-    ROOTINCDIR=`$ROOTCONF --incdir`
-    ROOTETCDIR=`$ROOTCONF --etcdir`
-    ROOTCFLAGS=`$ROOTCONF --cflags`
-    ROOTLIBS=`$ROOTCONF --libs`
-    ROOTGLIBS=`$ROOTCONF --glibs`
-    ROOTAUXCFLAGS=`$ROOTCONF --auxcflags`
-    ROOTAUXLIBS=`$ROOTCONF --auxlibs`
-    ROOTRPATH=$ROOTLIBDIR
-    ROOTVERSION=`$ROOTCONF --version`
-    ROOTSOVERSION=`dirname $ROOTVERSION`
-
-    if test  ; then
-      { $as_echo "$as_me:${as_lineno-$LINENO}: checking wether ROOT version >= " >&5
-$as_echo_n "checking wether ROOT version >= ... " >&6; }
-      vers=`$ROOTCONF --version | tr './' ' ' | awk 'BEGIN { FS = " "; } { printf "%d", ($''1 * 1000 + $''2) * 1000 + $''3;}'`
-      requ=`echo  | tr './' ' ' | awk 'BEGIN { FS = " "; } { printf "%d", ($''1 * 1000 + $''2) * 1000 + $''3;}'`
-      if test $vers -lt $requ ; then
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
-$as_echo "no" >&6; }
-        no_root="yes"
-      else
-        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
-$as_echo "yes" >&6; }
-      fi
-    fi
-  else
-    # otherwise, we say no_root
-    no_root="yes"
-  fi
-
-
-
-
-
-
-
-
-
-
-
-
-
-  if test "x$no_root" = "x" ; then
-    { $as_echo "$as_me:${as_lineno-$LINENO}: ROOT $ROOTVERSION is found" >&5
-$as_echo "$as_me: ROOT $ROOTVERSION is found" >&6;}
-
-$as_echo "#define HAVE_ROOT 1" >>confdefs.h
-
-           HAVE_ROOT=1
-  else
-    HAVE_ROOT=0
-  fi
-
- if test "$HAVE_ROOT" -eq 1; then
-  USE_ROOT_TRUE=
-  USE_ROOT_FALSE='#'
-else
-  USE_ROOT_TRUE='#'
-  USE_ROOT_FALSE=
-fi
-
-
 for ac_func in sqrt
 do :
   ac_fn_cxx_check_func "$LINENO" "sqrt" "ac_cv_func_sqrt"
@@ -17205,6 +17039,172 @@ case $ac_cv_c_inline in
 _ACEOF
     ;;
 esac
+
+
+# ROOT (http://root.cern.ch/)
+
+
+# Check whether --with-rootsys was given.
+if test "${with_rootsys+set}" = set; then :
+  withval=$with_rootsys; user_rootsys=$withval
+else
+  user_rootsys="none"
+fi
+
+  if test ! x"$user_rootsys" = xnone; then
+    rootbin="$user_rootsys/bin"
+  elif test ! x"$ROOTSYS" = x ; then
+    rootbin="$ROOTSYS/bin"
+  else
+   rootbin=$PATH
+  fi
+  # Extract the first word of "root-config ", so it can be a program name with args.
+set dummy root-config ; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_ROOTCONF+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $ROOTCONF in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ROOTCONF="$ROOTCONF" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $rootbin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_ROOTCONF="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_ROOTCONF" && ac_cv_path_ROOTCONF="no"
+  ;;
+esac
+fi
+ROOTCONF=$ac_cv_path_ROOTCONF
+if test -n "$ROOTCONF"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ROOTCONF" >&5
+$as_echo "$ROOTCONF" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+  # Extract the first word of "root ", so it can be a program name with args.
+set dummy root ; ac_word=$2
+{ $as_echo "$as_me:${as_lineno-$LINENO}: checking for $ac_word" >&5
+$as_echo_n "checking for $ac_word... " >&6; }
+if ${ac_cv_path_ROOTEXEC+:} false; then :
+  $as_echo_n "(cached) " >&6
+else
+  case $ROOTEXEC in
+  [\\/]* | ?:[\\/]*)
+  ac_cv_path_ROOTEXEC="$ROOTEXEC" # Let the user override the test with a path.
+  ;;
+  *)
+  as_save_IFS=$IFS; IFS=$PATH_SEPARATOR
+for as_dir in $rootbin
+do
+  IFS=$as_save_IFS
+  test -z "$as_dir" && as_dir=.
+    for ac_exec_ext in '' $ac_executable_extensions; do
+  if as_fn_executable_p "$as_dir/$ac_word$ac_exec_ext"; then
+    ac_cv_path_ROOTEXEC="$as_dir/$ac_word$ac_exec_ext"
+    $as_echo "$as_me:${as_lineno-$LINENO}: found $as_dir/$ac_word$ac_exec_ext" >&5
+    break 2
+  fi
+done
+  done
+IFS=$as_save_IFS
+
+  test -z "$ac_cv_path_ROOTEXEC" && ac_cv_path_ROOTEXEC="no"
+  ;;
+esac
+fi
+ROOTEXEC=$ac_cv_path_ROOTEXEC
+if test -n "$ROOTEXEC"; then
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: $ROOTEXEC" >&5
+$as_echo "$ROOTEXEC" >&6; }
+else
+  { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+fi
+
+
+
+  if test ! x"$ROOTCONF" = "xno"; then
+
+    # define some variables
+    ROOTLIBDIR=`$ROOTCONF --libdir`
+    ROOTINCDIR=`$ROOTCONF --incdir`
+    ROOTETCDIR=`$ROOTCONF --etcdir`
+    ROOTCFLAGS=`$ROOTCONF --noauxcflags --cflags`
+    ROOTLIBS=`$ROOTCONF --noauxlibs --noldflags --libs`
+    ROOTGLIBS=`$ROOTCONF --noauxlibs --noldflags --glibs`
+    ROOTAUXCFLAGS=`$ROOTCONF --auxcflags`
+    ROOTAUXLIBS=`$ROOTCONF --auxlibs`
+    ROOTRPATH=$ROOTLIBDIR
+    ROOTVERSION=`$ROOTCONF --version`
+    ROOTSOVERSION=`dirname $ROOTVERSION`
+
+    if test  ; then
+      { $as_echo "$as_me:${as_lineno-$LINENO}: checking wether ROOT version >= " >&5
+$as_echo_n "checking wether ROOT version >= ... " >&6; }
+      vers=`$ROOTCONF --version | tr './' ' ' | awk 'BEGIN { FS = " "; } { printf "%d", ($''1 * 1000 + $''2) * 1000 + $''3;}'`
+      requ=`echo  | tr './' ' ' | awk 'BEGIN { FS = " "; } { printf "%d", ($''1 * 1000 + $''2) * 1000 + $''3;}'`
+      if test $vers -lt $requ ; then
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: no" >&5
+$as_echo "no" >&6; }
+        no_root="yes"
+      else
+        { $as_echo "$as_me:${as_lineno-$LINENO}: result: yes" >&5
+$as_echo "yes" >&6; }
+      fi
+    fi
+  else
+    # otherwise, we say no_root
+    no_root="yes"
+  fi
+
+
+
+
+
+
+
+
+
+
+
+
+
+  if test "x$no_root" = "x" ; then
+    { $as_echo "$as_me:${as_lineno-$LINENO}: ROOT $ROOTVERSION is found" >&5
+$as_echo "$as_me: ROOT $ROOTVERSION is found" >&6;}
+
+$as_echo "#define HAVE_ROOT 1" >>confdefs.h
+
+           HAVE_ROOT=1
+  else
+    HAVE_ROOT=0
+  fi
+
+ if test "$HAVE_ROOT" -eq 1; then
+  USE_ROOT_TRUE=
+  USE_ROOT_FALSE='#'
+else
+  USE_ROOT_TRUE='#'
+  USE_ROOT_FALSE=
+fi
 
 
 ac_config_files="$ac_config_files Makefile src/Makefile"

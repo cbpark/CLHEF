@@ -36,7 +36,6 @@ dnl ChangeLog:
 dnl
 dnl     2017-05-25 Chan Beom Park <cbpark@gmail.com>
 dnl
-dnl     * `--noauxcflags` and `--noldflags` are removed.
 dnl     * ROOTCINT is removed.
 AC_DEFUN([ROOT_PATH],
 [
@@ -61,9 +60,9 @@ AC_DEFUN([ROOT_PATH],
     ROOTLIBDIR=`$ROOTCONF --libdir`
     ROOTINCDIR=`$ROOTCONF --incdir`
     ROOTETCDIR=`$ROOTCONF --etcdir`
-    ROOTCFLAGS=`$ROOTCONF --cflags`
-    ROOTLIBS=`$ROOTCONF --libs`
-    ROOTGLIBS=`$ROOTCONF --glibs`
+    ROOTCFLAGS=`$ROOTCONF --noauxcflags --cflags`
+    ROOTLIBS=`$ROOTCONF --noauxlibs --noldflags --libs`
+    ROOTGLIBS=`$ROOTCONF --noauxlibs --noldflags --glibs`
     ROOTAUXCFLAGS=`$ROOTCONF --auxcflags`
     ROOTAUXLIBS=`$ROOTCONF --auxlibs`
     ROOTRPATH=$ROOTLIBDIR

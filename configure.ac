@@ -16,15 +16,15 @@ AC_PROG_INSTALL
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 LT_INIT
 
+AC_CHECK_FUNCS([sqrt],,AC_MSG_ERROR([Required math functions not found]))
+AC_CHECK_HEADER_STDBOOL
+AC_C_INLINE
+
 # ROOT (http://root.cern.ch/)
 ROOT_PATH(,AC_MSG_NOTICE([ROOT $ROOTVERSION is found])
            AC_DEFINE([HAVE_ROOT], [1], [Define to 1 if you have ROOT])
            HAVE_ROOT=1, HAVE_ROOT=0)
 AM_CONDITIONAL([USE_ROOT], [test "$HAVE_ROOT" -eq 1])
-
-AC_CHECK_FUNCS([sqrt],,AC_MSG_ERROR([Required math functions not found]))
-AC_CHECK_HEADER_STDBOOL
-AC_C_INLINE
 
 AC_CONFIG_FILES([Makefile src/Makefile])
 AC_OUTPUT
