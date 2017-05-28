@@ -48,7 +48,7 @@ std::ostream &operator<<(std::ostream &os, const Particle &p) {
     return os;
 }
 
-const std::string show(const Particle &p) {
+std::string show(const Particle &p) {
     std::string p_str = "Particle {idup=" + to_string(p.idup_) +
                         ",istup=" + to_string(p.istup_) + ",mothup=(" +
                         to_string(p.mothup_.first) + "," +
@@ -65,7 +65,7 @@ const std::string show(const Particle &p) {
     return p_str;
 }
 
-const std::string show(const Particles &ps) {
+std::string show(const Particles &ps) {
     std::string ps_str = "[";
     for (const auto &p : ps) { ps_str += show(p) + ","; }
     ps_str.pop_back();

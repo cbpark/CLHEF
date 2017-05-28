@@ -82,10 +82,10 @@ struct EventInfo {
     friend std::ostream &operator<<(std::ostream &os, const EventInfo &evinfo);
 };
 
-const std::string show(const EventInfo &evinfo);
+std::string show(const EventInfo &evinfo);
 
 using EventEntry = std::unordered_map<int, Particle>;
-const std::string show(const EventEntry &entry);
+std::string show(const EventEntry &entry);
 
 class Event {
 public:
@@ -110,12 +110,12 @@ public:
 
     void operator()(const EventStatus &s) { status_ = s; }
 
-    friend const std::string show(const Event &ev);
+    friend std::string show(const Event &ev);
 
     friend std::ostream &operator<<(std::ostream &os, const Event &ev);
 };
 
-const std::string show(const Event &ev);
+std::string show(const Event &ev);
 }  // namespace lhef
 
 #endif  // SRC_EVENT_H_

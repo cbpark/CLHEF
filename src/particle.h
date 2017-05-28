@@ -59,7 +59,7 @@ public:
     double pt() const { return std::hypot(pup_[0], pup_[1]); }
     double decayLength() const { return vtimup_; }
 
-    friend const std::string show(const Particle &p);
+    friend std::string show(const Particle &p);
 
     friend bool operator<(const Particle &lhs, const Particle &rhs) {
         return lhs.pt() < rhs.pt();
@@ -81,10 +81,10 @@ public:
     friend std::ostream &operator<<(std::ostream &os, const Particle &p);
 };
 
-const std::string show(const Particle &p);
+std::string show(const Particle &p);
 
 using Particles = std::vector<Particle>;
-const std::string show(const Particles &ps);
+std::string show(const Particles &ps);
 
 using ParticleID = std::vector<int>;
 

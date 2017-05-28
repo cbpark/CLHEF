@@ -74,7 +74,7 @@ std::ostream &operator<<(std::ostream &os, const EventInfo &evinfo) {
     return os;
 }
 
-const std::string show(const EventInfo &evinfo) {
+std::string show(const EventInfo &evinfo) {
     std::string evinfo_str = "EventInfo {nup=" + to_string(evinfo.nup) +
                              ",idprup=" + to_string(evinfo.idprup) +
                              ",xwgtup=" + to_string(evinfo.xwgtup) +
@@ -84,7 +84,7 @@ const std::string show(const EventInfo &evinfo) {
     return evinfo_str;
 }
 
-const std::string show(const EventEntry &entry) {
+std::string show(const EventEntry &entry) {
     std::string entry_str = "[";
     for (const auto &e : entry) {
         entry_str += "(" + to_string(e.first) + "," + show(e.second) + "),";
@@ -106,7 +106,7 @@ std::ostream &operator<<(std::ostream &os, const Event &ev) {
     return os;
 }
 
-const std::string show(const Event &ev) {
+std::string show(const Event &ev) {
     std::string ev_str = "Event (";
     ev_str += show(ev.event_.first) + "," + show(ev.event_.second) + ")";
     return ev_str;
