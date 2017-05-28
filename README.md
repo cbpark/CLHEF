@@ -5,10 +5,9 @@ Tools for the [Les Houches Event File](http://home.thep.lu.se/~leif/LHEF/) (LHEF
 ## Installation
 
 ```
-git clone git@github.com:cbpark/CLHEF.git
 ./configure
 make
-make install-strip
+make install
 ```
 
 If ROOT is not located in the system path, it can be set by `./configure --with-rootsys=path/of/root`.
