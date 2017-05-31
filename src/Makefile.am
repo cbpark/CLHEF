@@ -9,7 +9,7 @@ AM_CXXFLAGS += $(ROOTCFLAGS)
 endif
 
 lib_LTLIBRARIES      = libCLHEF.la
-libCLHEF_la_SOURCES  = event.cc lhef.cc parser.cc particle.cc
+libCLHEF_la_SOURCES  = event.cc lhef.cc parser.cc particle.cc kinematics.cc
 if USE_ROOT
 libCLHEF_la_LIBADD   = -L$(ROOTLIBDIR) $(ROOTLIBS)
 endif

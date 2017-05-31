@@ -143,7 +143,8 @@ am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(noinst_bindir)" \
 LTLIBRARIES = $(lib_LTLIBRARIES)
 am__DEPENDENCIES_1 =
 @USE_ROOT_TRUE@libCLHEF_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
-am_libCLHEF_la_OBJECTS = event.lo lhef.lo parser.lo particle.lo
+am_libCLHEF_la_OBJECTS = event.lo lhef.lo parser.lo particle.lo \
+	kinematics.lo
 libCLHEF_la_OBJECTS = $(am_libCLHEF_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
 am__v_lt_ = $(am__v_lt_@AM_DEFAULT_V@)
@@ -363,7 +364,7 @@ top_srcdir = @top_srcdir@
 AM_CXXFLAGS = -std=c++14 -I$(top_srcdir)/src $(am__append_1) \
 	$(am__append_2)
 lib_LTLIBRARIES = libCLHEF.la
-libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc
+libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc kinematics.cc
 @USE_ROOT_TRUE@libCLHEF_la_LIBADD = -L$(ROOTLIBDIR) $(ROOTLIBS)
 pkginclude_HEADERS = event.h lhef.h parser.h particle.h kinematics.h \
 	pdg_numbering.h
@@ -509,6 +510,7 @@ distclean-compile:
 	-rm -f *.tab.c
 
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/event.Plo@am__quote@
+@AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/kinematics.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/lhef.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/parser.Plo@am__quote@
 @AMDEP_TRUE@@am__include@ @am__quote@./$(DEPDIR)/particle.Plo@am__quote@
