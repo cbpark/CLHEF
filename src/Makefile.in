@@ -141,7 +141,8 @@ am__uninstall_files_from_dir = { \
 am__installdirs = "$(DESTDIR)$(libdir)" "$(DESTDIR)$(noinst_bindir)" \
 	"$(DESTDIR)$(pkgincludedir)"
 LTLIBRARIES = $(lib_LTLIBRARIES)
-libCLHEF_la_LIBADD =
+am__DEPENDENCIES_1 =
+@USE_ROOT_TRUE@libCLHEF_la_DEPENDENCIES = $(am__DEPENDENCIES_1)
 am_libCLHEF_la_OBJECTS = event.lo lhef.lo parser.lo particle.lo
 libCLHEF_la_OBJECTS = $(am_libCLHEF_la_OBJECTS)
 AM_V_lt = $(am__v_lt_@AM_V@)
@@ -152,7 +153,6 @@ PROGRAMS = $(noinst_bin_PROGRAMS)
 am__test_parse_SOURCES_DIST = test_parse.cc
 @DEBUG_TRUE@am_test_parse_OBJECTS = test_parse.$(OBJEXT)
 test_parse_OBJECTS = $(am_test_parse_OBJECTS)
-am__DEPENDENCIES_1 =
 @DEBUG_TRUE@@USE_ROOT_TRUE@am__DEPENDENCIES_2 = $(am__DEPENDENCIES_1)
 @DEBUG_TRUE@test_parse_DEPENDENCIES = libCLHEF.la \
 @DEBUG_TRUE@	$(am__DEPENDENCIES_2)
@@ -364,6 +364,7 @@ AM_CXXFLAGS = -std=c++14 -I$(top_srcdir)/src $(am__append_1) \
 	$(am__append_2)
 lib_LTLIBRARIES = libCLHEF.la
 libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc
+@USE_ROOT_TRUE@libCLHEF_la_LIBADD = -L$(ROOTLIBDIR) $(ROOTLIBS)
 pkginclude_HEADERS = event.h lhef.h parser.h particle.h kinematics.h \
 	pdg_numbering.h
 

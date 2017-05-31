@@ -12,13 +12,18 @@ AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CXX
 AC_LANG([C++])
 AX_CXX_COMPILE_STDCXX(14,noext,mandatory)
+AC_PROG_AWK
+AC_PROG_CC
+AC_PROG_CPP
 AC_PROG_INSTALL
+AC_PROG_LN_S
+AC_PROG_MAKE_SET
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 LT_INIT
 
-AC_CHECK_FUNCS([sqrt],,AC_MSG_ERROR([Required math functions not found]))
 AC_CHECK_HEADER_STDBOOL
 AC_C_INLINE
+AC_CHECK_FUNCS([sqrt],,AC_MSG_ERROR([Required math functions not found]))
 
 # ROOT (http://root.cern.ch/)
 ROOT_PATH(,AC_MSG_NOTICE([ROOT $ROOTVERSION is found])

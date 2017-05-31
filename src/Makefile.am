@@ -10,6 +10,9 @@ endif
 
 lib_LTLIBRARIES      = libCLHEF.la
 libCLHEF_la_SOURCES  = event.cc lhef.cc parser.cc particle.cc
+if USE_ROOT
+libCLHEF_la_LIBADD   = -L$(ROOTLIBDIR) $(ROOTLIBS)
+endif
 
 pkginclude_HEADERS = event.h lhef.h parser.h particle.h kinematics.h \
 	pdg_numbering.h
