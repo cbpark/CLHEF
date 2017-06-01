@@ -257,7 +257,7 @@ EGREP = @EGREP@
 EXEEXT = @EXEEXT@
 FGREP = @FGREP@
 GREP = @GREP@
-HAVE_CXX14 = @HAVE_CXX14@
+HAVE_CXX11 = @HAVE_CXX11@
 INSTALL = @INSTALL@
 INSTALL_DATA = @INSTALL_DATA@
 INSTALL_PROGRAM = @INSTALL_PROGRAM@
@@ -361,7 +361,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CXXFLAGS = -std=c++14 -I$(top_srcdir)/src $(am__append_1) \
+AM_CXXFLAGS = -std=c++11 -I$(top_srcdir)/src $(am__append_1) \
 	$(am__append_2)
 lib_LTLIBRARIES = libCLHEF.la
 libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc kinematics.cc

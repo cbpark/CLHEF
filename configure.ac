@@ -11,7 +11,7 @@ m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 AM_INIT_AUTOMAKE([-Wall -Werror foreign])
 AC_PROG_CXX
 AC_LANG([C++])
-AX_CXX_COMPILE_STDCXX(14,noext,mandatory)
+AX_CXX_COMPILE_STDCXX(11,noext,mandatory)
 AC_PROG_AWK
 AC_PROG_CC
 AC_PROG_CPP

@@ -1,4 +1,4 @@
-AM_CXXFLAGS = -std=c++14 -I$(top_srcdir)/src
+AM_CXXFLAGS = -std=c++11 -I$(top_srcdir)/src
 
 if DEBUG
 AM_CXXFLAGS += -O0 -Wall -Wextra -pedantic
