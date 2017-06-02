@@ -7,7 +7,7 @@
 #include "event.h"
 #include "parser.h"
 #include "particle.h"
-#include "pdg_numbering.h"
+#include "pid.h"
 
 namespace lhef {
 std::string openingLine();
