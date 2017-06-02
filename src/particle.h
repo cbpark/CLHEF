@@ -3,6 +3,7 @@
 #ifndef CLHEF_SRC_PARTICLE_H_
 #define CLHEF_SRC_PARTICLE_H_
 
+#include <algorithm>
 #include <array>
 #include <cmath>
 #include <iostream>
@@ -10,6 +11,7 @@
 #include <utility>
 #include <vector>
 #include "kinematics.h"
+#include "pid.h"
 
 namespace lhef {
 class Particle {
@@ -58,6 +60,10 @@ public:
     double mass() const { return pup_[4]; }
     double pt() const { return std::hypot(pup_[0], pup_[1]); }
     double decayLength() const { return vtimup_; }
+
+    bool is(const ParticleID &pid) const {
+        return std::find(pid.cbegin(), pid.cend(), idup_) != pid.cend();
+    }
 
     friend std::string show(const Particle &p);
 

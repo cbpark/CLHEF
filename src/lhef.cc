@@ -32,12 +32,8 @@ Particles finalStates(const Event &lhe) {
     return selectParticlesBy(pred, lhe);
 }
 
-bool particleExists(const ParticleID &pid, const Particle &p) {
-    return std::find(pid.cbegin(), pid.cend(), p.pid()) != pid.cend();
-}
-
 Particles particlesOf(const ParticleID &pid, const Event &lhe) {
-    auto pred = [&pid](const Particle &p) { return particleExists(pid, p); };
+    auto pred = [&pid](const Particle &p) { return p.is(pid); };
     return selectParticlesBy(pred, lhe);
 }
 
@@ -46,7 +42,7 @@ ParticleLines particleLinesOf(const ParticleID &pid, const Event &lhe) {
     auto entry = lhe.particleEntries();
     for (const auto &e : entry) {
         auto particle = e.second;
-        if (particleExists(pid, particle)) line.push_back(std::move(e.first));
+        if (particle.is(pid)) { line.push_back(std::move(e.first)); }
     }
     return line;
 }
