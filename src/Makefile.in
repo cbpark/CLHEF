@@ -90,7 +90,7 @@ PRE_UNINSTALL = :
 POST_UNINSTALL = :
 build_triplet = @build@
 host_triplet = @host@
-@DEBUG_TRUE@am__append_1 = -O0 -Wall -Wextra -pedantic
+@DEBUG_TRUE@am__append_1 = -DDEBUG -O0 -Wall -Wextra -pedantic
 @USE_ROOT_TRUE@am__append_2 = $(ROOTCFLAGS)
 @DEBUG_TRUE@noinst_bin_PROGRAMS = test_parse$(EXEEXT) \
 @DEBUG_TRUE@	test_render$(EXEEXT)
@@ -361,8 +361,7 @@ target_alias = @target_alias@
 top_build_prefix = @top_build_prefix@
 top_builddir = @top_builddir@
 top_srcdir = @top_srcdir@
-AM_CXXFLAGS = -std=c++11 -I$(top_srcdir)/src $(am__append_1) \
-	$(am__append_2)
+AM_CXXFLAGS = -std=c++11 $(am__append_1) $(am__append_2)
 lib_LTLIBRARIES = libCLHEF.la
 libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc kinematics.cc
 @USE_ROOT_TRUE@libCLHEF_la_LIBADD = -L$(ROOTLIBDIR) $(ROOTLIBS)

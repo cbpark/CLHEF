@@ -1,6 +1,6 @@
 #                                               -*- Autoconf -*-
 # Process this file with autoconf to produce a configure script.
-AC_PREREQ([2.69])
+AC_PREREQ([2.63])
 AC_INIT([CLHEF], [0.1.0.0], [cbpark@gmail.com])
 AC_CONFIG_SRCDIR([src])
 AC_CONFIG_AUX_DIR([config])
@@ -8,7 +8,7 @@ AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_MACRO_DIR([m4])
 m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
-AM_INIT_AUTOMAKE([-Wall -Werror foreign])
+AM_INIT_AUTOMAKE([-Wall foreign])
 AC_PROG_CXX
 AC_LANG([C++])
 AX_CXX_COMPILE_STDCXX(11,noext,mandatory)
@@ -21,7 +21,6 @@ AC_PROG_MAKE_SET
 m4_ifdef([AM_PROG_AR], [AM_PROG_AR])
 LT_INIT
 
-AC_CHECK_HEADER_STDBOOL
 AC_C_INLINE
 AC_CHECK_FUNCS([sqrt],,AC_MSG_ERROR([Required math functions not found]))
 

@@ -1,9 +1,7 @@
-AM_CXXFLAGS = -std=c++11 -I$(top_srcdir)/src
-
+AM_CXXFLAGS = -std=c++11
 if DEBUG
-AM_CXXFLAGS += -O0 -Wall -Wextra -pedantic
+AM_CXXFLAGS += -DDEBUG -O0 -Wall -Wextra -pedantic
 endif
-
 if USE_ROOT
 AM_CXXFLAGS += $(ROOTCFLAGS)
 endif
