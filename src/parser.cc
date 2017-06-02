@@ -1,8 +1,11 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
 #include "parser.h"
+#include <istream>
+#include <memory>
 #include <sstream>
 #include <string>
+#include <utility>
 
 namespace lhef {
 void skipTillEventLine(std::istream *is) {
@@ -51,5 +54,11 @@ Event parseEvent(std::istream *is) {
         lhe(Event::EventStatus::Empty);
     }
     return lhe;
+}
+
+std::pair<bool, Event> parseOrFail(std::shared_ptr<std::istream> is) {
+    const Event lhe{lhef::parseEvent(is.get())};
+    if (lhe.empty()) { return std::make_pair(false, lhe); }
+    return std::make_pair(true, lhe);
 }
 }  // namespace lhef
