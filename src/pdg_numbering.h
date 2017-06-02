@@ -7,11 +7,11 @@
 
 namespace lhef {
 const ParticleID Electron = {11, -11};
-const ParticleID ElecNeu = {12};
+const ParticleID ElecNeutrino = {12, -12};
 const ParticleID Muon = {13, -13};
-const ParticleID MuonNeu = {14};
+const ParticleID MuonNeutrino = {14, -14};
 const ParticleID Tau = {15, -15};
-const ParticleID TauNeu = {16};
+const ParticleID TauNeutrino = {16, -16};
 
 const ParticleID Charm = {4, -4};
 const ParticleID Bottom = {5, -5};
