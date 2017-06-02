@@ -14,7 +14,7 @@ If ROOT is not located in the system path, it can be set by `./configure --with-
 
 ### Prerequisite
 
-- C++ compiler supporting C++14 features,
+- C++ compiler supporting C++11 features ([Clang](http://clang.llvm.org/cxx_status.html) >= 3.3, [GCC](https://gcc.gnu.org/projects/cxx-status.html) >= 4.8.1),
 - (optional) [ROOT](https://root.cern.ch/).
 
 ## Usage
