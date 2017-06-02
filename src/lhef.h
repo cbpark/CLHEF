@@ -1,7 +1,7 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
-#ifndef SRC_LHEF_H_
-#define SRC_LHEF_H_
+#ifndef CLHEF_SRC_LHEF_H_
+#define CLHEF_SRC_LHEF_H_
 
 #include <string>
 #include "event.h"
@@ -31,4 +31,4 @@ Particles daughters(int pline, const Event &lhe);
 Particles finalDaughters(int pline, const Event &lhe);
 }  // namespace lhef
 
-#endif  // SRC_LHEF_H_
+#endif  // CLHEF_SRC_LHEF_H_

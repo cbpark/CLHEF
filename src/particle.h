@@ -1,7 +1,7 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
-#ifndef SRC_PARTICLE_H_
-#define SRC_PARTICLE_H_
+#ifndef CLHEF_SRC_PARTICLE_H_
+#define CLHEF_SRC_PARTICLE_H_
 
 #include <array>
 #include <cmath>
@@ -91,4 +91,4 @@ using ParticleID = std::vector<int>;
 using ParticleLines = std::vector<int>;
 }  // namespace lhef
 
-#endif  // SRC_PARTICLE_H_
+#endif  // CLHEF_SRC_PARTICLE_H_

@@ -1,7 +1,7 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
-#ifndef SRC_KINEMATICS_H_
-#define SRC_KINEMATICS_H_
+#ifndef CLHEF_SRC_KINEMATICS_H_
+#define CLHEF_SRC_KINEMATICS_H_
 
 #include <cmath>
 
@@ -33,4 +33,4 @@ struct Energy {
 double invariantMass(const Energy &e, const Px &px, const Py &py, const Pz &pz);
 }  // namespace lhef
 
-#endif  // SRC_KINEMATICS_H_
+#endif  // CLHEF_SRC_KINEMATICS_H_

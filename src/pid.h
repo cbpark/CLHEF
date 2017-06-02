@@ -1,7 +1,7 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
-#ifndef SRC_PDG_NUMBERING_H_
-#define SRC_PDG_NUMBERING_H_
+#ifndef CLHEF_SRC_PDG_NUMBERING_H_
+#define CLHEF_SRC_PDG_NUMBERING_H_
 
 #include "particle.h"
 
@@ -24,4 +24,4 @@ const ParticleID Wboson = {24};
 const ParticleID Higgs = {25};
 }  // namespace lhef
 
-#endif  // SRC_PDG_NUMBERING_H_
+#endif  // CLHEF_SRC_PDG_NUMBERING_H_

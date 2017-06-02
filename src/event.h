@@ -1,7 +1,7 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
-#ifndef SRC_EVENT_H_
-#define SRC_EVENT_H_
+#ifndef CLHEF_SRC_EVENT_H_
+#define CLHEF_SRC_EVENT_H_
 
 #include <iostream>
 #include <string>
@@ -118,4 +118,4 @@ public:
 std::string show(const Event &ev);
 }  // namespace lhef
 
-#endif  // SRC_EVENT_H_
+#endif  // CLHEF_SRC_EVENT_H_
