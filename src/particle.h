@@ -86,8 +86,6 @@ std::string show(const Particle &p);
 using Particles = std::vector<Particle>;
 std::string show(const Particles &ps);
 
-using ParticleID = std::vector<int>;
-
 using ParticleLines = std::vector<int>;
 }  // namespace lhef
 
