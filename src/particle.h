@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <array>
 #include <cmath>
+#include <functional>
 #include <iostream>
 #include <string>
 #include <utility>
@@ -93,6 +94,19 @@ using Particles = std::vector<Particle>;
 std::string show(const Particles &ps);
 
 using ParticleLines = std::vector<int>;
+
+Particle sum(const Particles &ps);
+
+inline Particles selectBy(std::function<bool(const Particle &)> pred,
+                          const Particles &ps) {
+    Particles ps_;
+    for (const auto &p : ps) {
+        if (pred(p)) { ps_.push_back(p); }
+    }
+    return ps_;
+}
+
+Particles selectByID(const ParticleID &pid, const Particles &ps);
 }  // namespace lhef
 
 #endif  // CLHEF_SRC_PARTICLE_H_
