@@ -88,4 +88,9 @@ Particles selectByID(const ParticleID &pid, const Particles &ps) {
     auto pred = [&pid](const Particle &p) { return p.is(pid); };
     return selectBy(pred, ps);
 }
+
+Particles excludeByID(const ParticleID &pid, const Particles &ps) {
+    auto pred = [&pid](const Particle &p) { return !p.is(pid); };
+    return selectBy(pred, ps);
+}
 }  // namespace lhef

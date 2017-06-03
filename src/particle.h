@@ -107,6 +107,8 @@ inline Particles selectBy(std::function<bool(const Particle &)> pred,
 }
 
 Particles selectByID(const ParticleID &pid, const Particles &ps);
+
+Particles excludeByID(const ParticleID &pid, const Particles &ps);
 }  // namespace lhef
 
 #endif  // CLHEF_SRC_PARTICLE_H_
