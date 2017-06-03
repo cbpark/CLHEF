@@ -2,7 +2,10 @@
 
 #include "particle.h"
 #include <iomanip>
+#include <iostream>
+#include <string>
 
+using std::string;
 using std::to_string;
 
 namespace lhef {
@@ -48,13 +51,13 @@ std::ostream &operator<<(std::ostream &os, const Particle &p) {
     return os;
 }
 
-std::string show(const Particle &p) {
-    std::string p_str = "Particle {idup=" + to_string(p.idup_) +
-                        ",istup=" + to_string(p.istup_) + ",mothup=(" +
-                        to_string(p.mothup_.first) + "," +
-                        to_string(p.mothup_.second) + ")" + ",icolup=(" +
-                        to_string(p.icolup_.first) + "," +
-                        to_string(p.icolup_.second) + ")" + ",pup=(";
+string show(const Particle &p) {
+    string p_str = "Particle {idup=" + to_string(p.idup_) +
+                   ",istup=" + to_string(p.istup_) + ",mothup=(" +
+                   to_string(p.mothup_.first) + "," +
+                   to_string(p.mothup_.second) + ")" + ",icolup=(" +
+                   to_string(p.icolup_.first) + "," +
+                   to_string(p.icolup_.second) + ")" + ",pup=(";
 
     for (const auto &momentum : p.pup_) { p_str += to_string(momentum) + ","; }
     p_str.pop_back();
@@ -65,8 +68,8 @@ std::string show(const Particle &p) {
     return p_str;
 }
 
-std::string show(const Particles &ps) {
-    std::string ps_str = "[";
+string show(const Particles &ps) {
+    string ps_str = "[";
     for (const auto &p : ps) { ps_str += show(p) + ","; }
     ps_str.pop_back();
     ps_str += "]";

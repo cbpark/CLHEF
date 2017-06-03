@@ -7,11 +7,12 @@
 #include <string>
 #include <utility>
 
+using std::string;
+
 namespace lhef {
 void skipTillEventLine(std::istream *is) {
     std::string line;
-    while (std::getline(*is, line) &&
-           line.find("<event") == std::string::npos) {
+    while (std::getline(*is, line) && line.find("<event") == string::npos) {
         continue;
     }
 }
@@ -21,7 +22,7 @@ std::string eventStr(std::istream *is) {
 
     std::string event_line(""), line;
     while (std::getline(*is, line)) {
-        if (line.find("</event") == std::string::npos) {
+        if (line.find("</event") == string::npos) {
             if (line.front() == '#') {  // comment line
                 continue;
             } else {
@@ -35,7 +36,7 @@ std::string eventStr(std::istream *is) {
 }
 
 Event parseEvent(std::istream *is) {
-    std::string evstr = eventStr(is);
+    string evstr = eventStr(is);
 
     Event lhe;
     if (!evstr.empty()) {

@@ -3,6 +3,7 @@
 #include "event.h"
 #include <iomanip>
 #include <ios>
+#include <iostream>
 #include <map>
 
 using std::setw;
@@ -98,10 +99,9 @@ std::ostream &operator<<(std::ostream &os, const Event &ev) {
     os << "<event>\n" << ev.event_.first << '\n';
 
     // EventEntry is unordered_map. It has to be ordered.
-    std::map<int, Particle> entry_ordered(ev.event_.second.cbegin(),
-                                          ev.event_.second.cend());
-    for (const auto &entry : entry_ordered) os << entry.second << '\n';
-
+    const std::map<int, Particle> entry_ordered(ev.event_.second.cbegin(),
+                                                ev.event_.second.cend());
+    for (const auto &entry : entry_ordered) { os << entry.second << '\n'; }
     os << "</event>";
     return os;
 }

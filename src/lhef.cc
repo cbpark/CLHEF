@@ -14,9 +14,9 @@ std::string closingLine() { return "</LesHouchesEvents>"; }
 Particles selectParticlesBy(std::function<bool(const Particle &)> pred,
                             const Event &lhe) {
     Particles ps;
-    auto entry = lhe.particleEntries();
+    const auto entry{lhe.particleEntries()};
     for (const auto &e : entry) {
-        auto particle = e.second;
+        const auto particle{e.second};
         if (pred(particle)) ps.push_back(std::move(particle));
     }
     return ps;
@@ -39,17 +39,17 @@ Particles particlesOf(const ParticleID &pid, const Event &lhe) {
 
 ParticleLines particleLinesOf(const ParticleID &pid, const Event &lhe) {
     ParticleLines line;
-    auto entry = lhe.particleEntries();
+    const auto entry{lhe.particleEntries()};
     for (const auto &e : entry) {
-        auto particle = e.second;
+        const auto particle{e.second};
         if (particle.is(pid)) { line.push_back(std::move(e.first)); }
     }
     return line;
 }
 
 Particle mother(const Particle &p, const Event &lhe) {
-    auto mo_line = p.mother().first;
-    auto entry = lhe.particleEntries();
+    const int mo_line = p.mother().first;
+    const auto entry{lhe.particleEntries()};
     if (entry.find(mo_line) == entry.end()) {  // mother particle not found
         return entry.at(1);
     } else {
@@ -58,7 +58,7 @@ Particle mother(const Particle &p, const Event &lhe) {
 }
 
 Particle ancestor(const Particle &p, const Event &lhe) {
-    auto m = mother(p, lhe);
+    const auto m = mother(p, lhe);
     return m.mother().first == 1 ? m : ancestor(m, lhe);
 }
 
@@ -69,14 +69,14 @@ Particles daughters(int pline, const Event &lhe) {
     return selectParticlesBy(pred, lhe);
 }
 
-bool isInMotherLines(int pline, const Particle &p, const Event &lhe) {
-    auto mo_line = p.mother().first;
+bool isInMotherLines(const int pline, const Particle &p, const Event &lhe) {
+    const int mo_line = p.mother().first;
     if (mo_line == 1) {
         return false;
     } else if (mo_line == pline) {
         return true;
     } else {
-        auto direct_mother = mother(p, lhe);
+        const auto direct_mother{mother(p, lhe)};
         return isInMotherLines(pline, direct_mother, lhe);
     }
 }
