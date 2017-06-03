@@ -3,8 +3,10 @@
 #include "lhef.h"
 #include <algorithm>
 #include <functional>
+#include <numeric>
 #include <string>
 #include <utility>
+#include "particle.h"
 
 namespace lhef {
 std::string openingLine() { return "<LesHouchesEvents version=\"1.0\">"; }
@@ -89,5 +91,12 @@ Particles finalDaughters(int pline, const Event &lhe) {
                               });
     finalstates.erase(pos, finalstates.end());
     return finalstates;
+}
+
+Particle sumAllOf(const Particles &ps) {
+    Particle sum = std::accumulate(
+        ps.cbegin(), ps.cend(), Particle{Energy(0), Px(0), Py(0), Pz(0)},
+        [](const Particle &p1, const Particle &p2) { return p1 + p2; });
+    return sum;
 }
 }  // namespace lhef

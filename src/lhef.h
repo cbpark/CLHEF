@@ -29,6 +29,8 @@ Particle ancestor(const Particle &p, const Event &lhe);
 Particles daughters(int pline, const Event &lhe);
 
 Particles finalDaughters(int pline, const Event &lhe);
+
+Particle sumAllOf(const Particles &ps);
 }  // namespace lhef
 
 #endif  // CLHEF_SRC_LHEF_H_
