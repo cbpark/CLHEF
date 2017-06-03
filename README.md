@@ -19,6 +19,22 @@ If ROOT is not located in the system path, it can be set by `./configure --with-
 
 ## Usage
 
+``` c++
+#include <fstream>
+#include <iostream>
+#include "clhef/lhef.h"
+
+int main(int, char *argv[]) {
+    std::ifstream fin(argv[1]);
+    auto lhe = lhef::parseEvent(&fin);
+    for (int ieve = 0; !lhe.done(); lhe = lhef::parseEvent(&fin), ++ieve) {
+        std::cout << "-- Event number: " << ieve + 1 << '\n';
+        const auto final_states{lhef::finalStates(lhe)};
+        std::cout << lhef::show(final_states) << '\n';
+    }
+}
+```
+
 See [`src/test_parse.cc`](src/test_parse.cc) and [`src/test_render.cc`](src/test_render.cc) for the example usage.
 
 ## References

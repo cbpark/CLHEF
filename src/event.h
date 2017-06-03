@@ -107,6 +107,7 @@ public:
     EventInfo eventInfo() const { return event_.first; }
     EventEntry particleEntries() const { return event_.second; }
     bool empty() const { return status_ == EventStatus::Empty; }
+    bool done() const { return empty(); }
 
     void operator()(const EventStatus &s) { status_ = s; }
 
