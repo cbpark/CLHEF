@@ -23,6 +23,7 @@ build
 *TAG*
 *PATH
 *.lhe
+*.log
 *.gz
 test_parse
 test_render

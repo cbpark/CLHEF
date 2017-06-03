@@ -16,11 +16,8 @@ Particles selectParticlesBy(std::function<bool(const Particle &)> pred,
                             const Event &lhe) {
     Particles ps;
     const auto entry{lhe.particleEntries()};
-    for (const auto &e : entry) {
-        const auto particle{e.second};
-        if (pred(particle)) ps.push_back(std::move(particle));
-    }
-    return ps;
+    for (const auto &e : entry) { ps.push_back(e.second); }
+    return selectBy(pred, ps);  // definition: see `particle.h`.
 }
 
 Particles initialStates(const Event &lhe) {
