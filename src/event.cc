@@ -1,6 +1,7 @@
 /* Copyright (c) 2014-2015, 2017, Chan Beom Park <cbpark@gmail.com> */
 
 #include "event.h"
+#include <algorithm>
 #include <iomanip>
 #include <ios>
 #include <iostream>
@@ -10,6 +11,16 @@ using std::setw;
 using std::to_string;
 
 namespace lhef {
+Particles Event::particles() const {
+    Particles ps;
+    const auto entries = particleEntries();
+    ps.reserve(entries.size());
+    std::for_each(
+        entries.cbegin(), entries.cend(),
+        [&ps](const EventEntry::value_type &e) { ps.push_back(e.second); });
+    return ps;
+}
+
 std::istream &operator>>(std::istream &is, GlobalInfo &info) {
     is >> info.idbmup.first >> info.idbmup.second >> info.ebmup.first >>
         info.ebmup.second >> info.pdfgup.first >> info.pdfgup.second >>

@@ -14,9 +14,7 @@ std::string closingLine() { return "</LesHouchesEvents>"; }
 
 Particles selectParticlesBy(std::function<bool(const Particle &)> pred,
                             const Event &lhe) {
-    Particles ps;
-    const auto entry{lhe.particleEntries()};
-    for (const auto &e : entry) { ps.push_back(e.second); }
+    const Particles ps = lhe.particles();
     return selectBy(pred, ps);  // definition: see `particle.h`.
 }
 

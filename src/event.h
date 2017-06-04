@@ -104,15 +104,17 @@ public:
         status_ = EventStatus::Fill;
         event_ = std::make_pair(evinfo, entry);
     }
+
     EventInfo eventInfo() const { return event_.first; }
     EventEntry particleEntries() const { return event_.second; }
+    Particles particles() const;
+
     bool empty() const { return status_ == EventStatus::Empty; }
     bool done() const { return empty(); }
 
     void operator()(const EventStatus &s) { status_ = s; }
 
     friend std::string show(const Event &ev);
-
     friend std::ostream &operator<<(std::ostream &os, const Event &ev);
 };
 
