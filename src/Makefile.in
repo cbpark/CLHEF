@@ -365,7 +365,9 @@ AM_CXXFLAGS = -std=c++11 $(am__append_1) $(am__append_2)
 lib_LTLIBRARIES = libCLHEF.la
 libCLHEF_la_SOURCES = event.cc lhef.cc parser.cc particle.cc kinematics.cc
 @USE_ROOT_TRUE@libCLHEF_la_LIBADD = -L$(ROOTLIBDIR) $(ROOTLIBS)
-pkginclude_HEADERS = event.h lhef.h parser.h particle.h kinematics.h pid.h
+pkginclude_HEADERS = constants.h event.h lhef.h parser.h particle.h \
+	kinematics.h pid.h
+
 @DEBUG_TRUE@noinst_bindir = $(top_builddir)
 @DEBUG_TRUE@test_parse_SOURCES = test_parse.cc
 @DEBUG_TRUE@test_parse_LDADD = libCLHEF.la $(am__append_3)

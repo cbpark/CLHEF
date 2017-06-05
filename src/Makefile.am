@@ -12,7 +12,8 @@ if USE_ROOT
 libCLHEF_la_LIBADD   = -L$(ROOTLIBDIR) $(ROOTLIBS)
 endif
 
-pkginclude_HEADERS = event.h lhef.h parser.h particle.h kinematics.h pid.h
+pkginclude_HEADERS = constants.h event.h lhef.h parser.h particle.h \
+	kinematics.h pid.h
 
 if DEBUG
 noinst_bindir = $(top_builddir)
