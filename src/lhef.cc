@@ -12,8 +12,8 @@ std::string openingLine() { return "<LesHouchesEvents version=\"1.0\">"; }
 
 std::string closingLine() { return "</LesHouchesEvents>"; }
 
-Particles selectParticlesBy(std::function<bool(const Particle &)> pred,
-                            const Event &lhe) {
+Particles selectParticlesBy(
+    std::function<bool(const Particles::value_type &)> pred, const Event &lhe) {
     const Particles ps = lhe.particles();
     return selectBy(pred, ps);  // definition: see `particle.h`.
 }

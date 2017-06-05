@@ -104,8 +104,9 @@ using ParticleLines = std::vector<int>;
 
 Particle sum(const Particles &ps);
 
-inline Particles selectBy(std::function<bool(const Particle &)> pred,
-                          const Particles &ps) {
+inline Particles selectBy(
+    std::function<bool(const Particles::value_type &)> pred,
+    const Particles &ps) {
     Particles ps_;
     for (const auto &p : ps) {
         if (pred(p)) { ps_.push_back(p); }
