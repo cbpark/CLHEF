@@ -91,7 +91,13 @@ public:
 std::string show(const Particle &p);
 
 using Particles = std::vector<Particle>;
+
 std::string show(const Particles &ps);
+
+inline void transformParticles(const Particles &ps,
+                               std::function<void(const Particle &)> func) {
+    std::for_each(ps.cbegin(), ps.cend(), func);
+}
 
 using ParticleLines = std::vector<int>;
 
