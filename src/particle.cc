@@ -106,4 +106,19 @@ Particles excludeByID(const ParticleID &pid, const Particles &ps) {
     auto pred = [&pid](const Particles::value_type &p) { return !p.is(pid); };
     return selectBy(pred, ps);
 }
+
+FourMomentum pSum(const Particles &ps) {
+    Particle p{sum(ps)};
+    return momentum(p);
+}
+
+double invariantMass(const Particles &ps) {
+    FourMomentum v{pSum(ps)};
+    return v.mass();
+}
+
+double transverseMomentum(const Particles &ps) {
+    FourMomentum v{pSum(ps)};
+    return v.pt();
+}
 }  // namespace lhef
