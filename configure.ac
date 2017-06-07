@@ -6,7 +6,6 @@ AC_CONFIG_SRCDIR([src])
 AC_CONFIG_AUX_DIR([config])
 AC_CONFIG_HEADERS([config/config.h])
 AC_CONFIG_MACRO_DIR([m4])
-m4_ifdef([AM_SILENT_RULES], [AM_SILENT_RULES([yes])])
 
 AM_INIT_AUTOMAKE([-Wall foreign])
 AC_PROG_CXX
