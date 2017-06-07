@@ -10,6 +10,8 @@
 #include "pid.h"
 
 namespace lhef {
+using ParticleLines = std::vector<int>;
+
 std::string openingLine();
 
 std::string closingLine();

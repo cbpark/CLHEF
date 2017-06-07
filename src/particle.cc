@@ -5,6 +5,7 @@
 #include <iostream>
 #include <numeric>
 #include <string>
+#include "kinematics.h"
 
 using std::string;
 using std::to_string;
@@ -67,6 +68,16 @@ string show(const Particle &p) {
             ",spinup=" + to_string(p.spinup_) + "}";
 
     return p_str;
+}
+
+double deltaPhi(const Particle &p1, const Particle &p2) {
+    FourMomentum v1 = momentum(p1), v2 = momentum(p2);
+    return deltaPhi(v1, v2);
+}
+
+double deltaR(const Particle &p1, const Particle &p2) {
+    FourMomentum v1 = momentum(p1), v2 = momentum(p2);
+    return deltaR(v1, v2);
 }
 
 string show(const Particles &ps) {

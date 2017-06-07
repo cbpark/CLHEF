@@ -36,10 +36,10 @@ private:
 
 public:
     Particle() {}
-    Particle(const Energy &e, const Px &px, const Py &py, const Pz &pz) {
-        const double m = invariantMass(e, px, py, pz);
-        pup_ = {{px.value, py.value, pz.value, e.value, m}};
-    }
+    explicit Particle(const FourMomentum &p)
+        : pup_({{p.px(), p.py(), p.pz(), p.energy(), p.mass()}}) {}
+    Particle(const Energy &e, const Px &px, const Py &py, const Pz &pz)
+        : Particle(FourMomentum{e, px, py, pz}) {}
     Particle(int idup, int istdup, int mothup1, int mothup2, int icolup1,
              int icolup2, double pup1, double pup2, double pup3, double pup4,
              double pup5, double vtimup, double spinup)
@@ -90,6 +90,14 @@ public:
 
 std::string show(const Particle &p);
 
+inline FourMomentum momentum(const Particle &p) {
+    return {Energy(p.energy()), Px(p.px()), Py(p.py()), Pz(p.pz())};
+}
+
+double deltaPhi(const Particle &p1, const Particle &p2);
+
+double deltaR(const Particle &p1, const Particle &p2);
+
 using Particles = std::vector<Particle>;
 
 std::string show(const Particles &ps);
@@ -99,8 +107,6 @@ inline void transformParticles(
     std::function<void(const Particles::value_type &)> func) {
     std::for_each(ps.cbegin(), ps.cend(), func);
 }
-
-using ParticleLines = std::vector<int>;
 
 Particle sum(const Particles &ps);
 

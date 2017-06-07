@@ -5,6 +5,8 @@
 
 namespace lhef {
 const double PI = 3.141592653589793;
+
+const double TWOPI = 2.0 * PI;
 }  // namespace lhef
 
 #endif  // CLHEF_SRC_CONSTANTS_H_
