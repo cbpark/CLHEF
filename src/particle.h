@@ -136,7 +136,11 @@ FourMomentum pSum(const Particles &ps);
 
 double invariantMass(const Particles &ps);
 
+inline double invariantMass(const Particle &p) { return p.mass(); }
+
 double transverseMomentum(const Particles &ps);
+
+inline double transverseMomentum(const Particle &p) { return p.pt(); }
 
 double sqrtSOfInits(const Particles &ps);
 }  // namespace lhef
