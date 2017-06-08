@@ -107,6 +107,29 @@ Particles excludeByID(const ParticleID &pid, const Particles &ps) {
     return selectBy(pred, ps);
 }
 
+Particles initialStates(const Particles &ps) {
+    auto pred = [](const Particles::value_type &p) { return p.status() == -1; };
+    return selectBy(pred, ps);
+}
+
+Particles intermediateStates(const Particles &ps) {
+    auto pred = [](const Particles::value_type &p) { return p.status() == 2; };
+    return selectBy(pred, ps);
+}
+
+Particles finalStates(const Particles &ps) {
+    auto pred = [](const Particles::value_type &p) { return p.status() == 1; };
+    return selectBy(pred, ps);
+}
+
+Particles collisionProducts(const Particles &ps) {
+    auto pred = [](const Particles::value_type &p) {
+        int mother_line = p.mother().first;
+        return mother_line == 1 || mother_line == 2;
+    };
+    return selectBy(pred, ps);
+}
+
 FourMomentum pSum(const Particles &ps) {
     Particle p{sum(ps)};
     return momentum(p);
@@ -115,6 +138,11 @@ FourMomentum pSum(const Particles &ps) {
 double invariantMass(const Particles &ps) {
     FourMomentum v{pSum(ps)};
     return v.mass();
+}
+
+double sqrtSOfInits(const Particles &ps) {
+    const Particles init{initialStates(ps)};
+    return invariantMass(init);
 }
 
 double transverseMomentum(const Particles &ps) {

@@ -18,7 +18,11 @@ std::string closingLine();
 
 Particles initialStates(const Event &lhe);
 
+Particles intermediateStates(const Event &lhe);
+
 Particles finalStates(const Event &lhe);
+
+Particles collisionProducts(const Event &lhe);
 
 Particles particlesOf(const ParticleID &pid, const Event &lhe);
 

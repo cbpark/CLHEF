@@ -124,11 +124,21 @@ Particles selectByID(const ParticleID &pid, const Particles &ps);
 
 Particles excludeByID(const ParticleID &pid, const Particles &ps);
 
+Particles initialStates(const Particles &ps);
+
+Particles intermediateStates(const Particles &ps);
+
+Particles finalStates(const Particles &ps);
+
+Particles collisionProducts(const Particles &ps);
+
 FourMomentum pSum(const Particles &ps);
 
 double invariantMass(const Particles &ps);
 
 double transverseMomentum(const Particles &ps);
+
+double sqrtSOfInits(const Particles &ps);
 }  // namespace lhef
 
 #endif  // CLHEF_SRC_PARTICLE_H_

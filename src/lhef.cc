@@ -14,18 +14,28 @@ std::string closingLine() { return "</LesHouchesEvents>"; }
 
 Particles selectParticlesBy(
     std::function<bool(const Particles::value_type &)> pred, const Event &lhe) {
-    const Particles ps = lhe.particles();
+    const Particles ps{lhe.particles()};
     return selectBy(pred, ps);  // definition: see `particle.h`.
 }
 
 Particles initialStates(const Event &lhe) {
-    auto pred = [](const Particle &p) { return p.mother().first == 1; };
-    return selectParticlesBy(pred, lhe);
+    const Particles ps{lhe.particles()};
+    return initialStates(ps);
+}
+
+Particles intermediateStates(const Event &lhe) {
+    const Particles ps{lhe.particles()};
+    return intermediateStates(ps);
 }
 
 Particles finalStates(const Event &lhe) {
-    auto pred = [](const Particle &p) { return p.status() == 1; };
-    return selectParticlesBy(pred, lhe);
+    const Particles ps{lhe.particles()};
+    return finalStates(ps);
+}
+
+Particles collisionProducts(const Event &lhe) {
+    const Particles ps{lhe.particles()};
+    return collisionProducts(ps);
 }
 
 Particles particlesOf(const ParticleID &pid, const Event &lhe) {
