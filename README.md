@@ -1,5 +1,7 @@
 # CLHEF
 
+**DEPRECATED** Use [colevent](https://github.com/cbpark/colevent).
+
 Tools for the [Les Houches Event File](http://home.thep.lu.se/~leif/LHEF/) (LHEF) analyses using C++. If you want to use Haskell, see [lhef-tools](https://github.com/cbpark/lhef-tools).
 
 ## Installation
